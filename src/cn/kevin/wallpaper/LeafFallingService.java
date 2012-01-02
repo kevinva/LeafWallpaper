@@ -193,8 +193,10 @@ public class LeafFallingService extends WallpaperService {
 				float centerX = l.getX() + l.getBitmap().getWidth() / 2.0f;
 				float centerY = l.getY() + l.getBitmap().getHeight() / 2.0f;
 				
-				if(Math.abs(centerX - touchX) <= 80 && Math.abs(centerY - touchY) <= 80 && centerX != touchX){
-					l.setTouched(true);					
+				if(!l.isTouched()){
+					if(Math.abs(centerX - touchX) <= 80 && Math.abs(centerY - touchY) <= 80 && centerX != touchX){
+						l.setTouched(true);					
+					}
 				}				
 			}
 			

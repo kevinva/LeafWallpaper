@@ -29,7 +29,7 @@ public class Leaf {
 		x = rand.nextFloat() * 400;		
 		y = -bitmap.getHeight();		
 		heightBound = h + bitmap.getHeight();		
-		bounceOffset = 5.0f;
+		bounceOffset = 8.0f;
 		touched = false;
 
 	}
@@ -106,10 +106,11 @@ public class Leaf {
 			}
 		}
 
-		this.bounceOffset *= 0.8;
-		if(this.bounceOffset <= 1.0){
+		this.bounceOffset *= 0.9;
+		if(this.bounceOffset < 1.0){
+			this.bounceOffset = 8.0f;
 			touched = false;
-			this.bounceOffset = 1.0f;
+			
 		}	
 		
 	}
