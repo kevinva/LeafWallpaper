@@ -2,6 +2,8 @@
 <resources>
 
     <string name="hello">Hello World!</string>
-    <string name="app_name">WallpaperSettingActivity</string>
+    <string name="app_name">LeafFallingWallpaper</string>
+    <string name="wallpaper_description">叶子轻轻飘落 build2</string>
+        
 
 </resources>
