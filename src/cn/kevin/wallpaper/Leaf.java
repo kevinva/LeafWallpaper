@@ -15,7 +15,7 @@ public class Leaf {
 	private float bounceOffset;
 	private boolean touched;
 
-	public Leaf(Bitmap source, int h){		
+	public Leaf(Bitmap source, int canvasHeight, int canvasWidth){		
 		Random rand = new Random();		
 		
 		speedY = 1 + rand.nextFloat() * 3;		
@@ -26,9 +26,9 @@ public class Leaf {
 		int width = (int)(source.getWidth() * scaleRate);
 		int height = (int)(source.getHeight() * scaleRate);
 		bitmap = Bitmap.createScaledBitmap(source, width, height, true);		
-		x = rand.nextFloat() * 400;		
+		x = rand.nextFloat() * canvasWidth;		
 		y = -bitmap.getHeight();		
-		heightBound = h + bitmap.getHeight();		
+		heightBound = canvasHeight + bitmap.getHeight();		
 		bounceOffset = 8.0f;
 		touched = false;
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/wallpaper_settings"
+    android:key="patternwallpaper_settings"
+    >
+    <PreferenceCategory 
+        android:title="@string/category1"
+        >
+        <ListPreference
+        	android:key="leaf_number"
+        	android:title="@string/leaf_number_title"
+        	android:summary="@string/leaf_number_summary"
+        	android:entries="@array/leaf_number_list"
+        	android:entryValues="@array/leaf_number_value"
+        	android:defaultValue="normal"
+        	/>
+    	<ListPreference
+        	android:key="leaf_falling_speed"
+        	android:title="@string/leaf_falling_speed_title"
+        	android:summary="@string/leaf_falling_speed_summary"
+        	android:entries="@array/leaf_falling_speed_list"
+       		android:entryValues="@array/leaf_falling_speed_value"
+       		android:defaultValue="medium"
+        	/>
+    </PreferenceCategory>
+</PreferenceScreen>

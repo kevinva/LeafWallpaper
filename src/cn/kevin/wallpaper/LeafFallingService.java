@@ -45,6 +45,7 @@ public class LeafFallingService extends WallpaperService {
 		private Paint paint;
 		private int count;
 		private int heightOfCanvas;
+		private int widthOfCanvas;
 		private Random rand;
 		private GestureDetector detector;
 		private float touchX;
@@ -112,6 +113,8 @@ public class LeafFallingService extends WallpaperService {
 			System.out.println("Engine: onSurfaceCreate");
 			Canvas canvas = holder.lockCanvas();
 			this.heightOfCanvas = canvas.getHeight();
+			this.widthOfCanvas = canvas.getWidth();
+			System.out.println("Width = " + widthOfCanvas + ", Height = " + heightOfCanvas);
 			holder.unlockCanvasAndPost(canvas);
 			
 			this.mHandler.sendEmptyMessage(DRAW_MSG);
@@ -137,16 +140,16 @@ public class LeafFallingService extends WallpaperService {
 					int index = rand.nextInt(3) + 1;
 					switch(index){
 					case 1:
-						l = new Leaf(bitmap1, this.heightOfCanvas);
+						l = new Leaf(bitmap1, this.heightOfCanvas, this.widthOfCanvas);
 						break;
 					case 2:
-						l = new Leaf(bitmap2, this.heightOfCanvas);
+						l = new Leaf(bitmap2, this.heightOfCanvas, this.widthOfCanvas);
 						break;
 					case 3:
-						l = new Leaf(bitmap3, this.heightOfCanvas);
+						l = new Leaf(bitmap3, this.heightOfCanvas, this.widthOfCanvas);
 						break;
 					default:
-						l = new Leaf(bitmap1, this.heightOfCanvas);
+						l = new Leaf(bitmap1, this.heightOfCanvas, this.widthOfCanvas);
 						break;					
 					}
 					this.leafList.add(l);				
