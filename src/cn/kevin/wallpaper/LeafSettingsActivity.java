@@ -21,9 +21,9 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		pref.registerOnSharedPreferenceChangeListener(this);
 		
 		this.list4Amount = (ListPreference)this.findPreference("leaf_number");
-		this.list4Speed = (ListPreference)this.findPreference("leaf_falling_speed");
-		this.setLeafFallingSpeedSummary(pref.getString("leaf_falling_speed", "medium"));
-		this.setLeafNumberSummary(pref.getString("leaf_number", "normal"));
+		this.list4Speed = (ListPreference)this.findPreference("leaf_falling_speed");		
+		this.setLeafFallingSpeedSummary(pref.getString("leaf_falling_speed", "20"));
+		this.setLeafNumberSummary(pref.getString("leaf_number", "75"));
 	}
 
 	
@@ -50,11 +50,11 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	
 	private void setLeafNumberSummary(String value){		
 		String title = "";
-		if(value.equals("many")){
+		if(value.equals("100")){
 			title = "许多";
-		}else if(value.equals("normal")){
+		}else if(value.equals("75")){
 			title = "普通";
-		}else if(value.equals("few")){
+		}else if(value.equals("60")){
 			title = "少量";
 		}			
 		list4Amount.setSummary("当前数量：" + title);
@@ -62,11 +62,11 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	
 	private void setLeafFallingSpeedSummary(String value){
 		String title = "";
-		if(value.equals("fast")){
+		if(value.equals("10")){
 			title = "较快";
-		}else if(value.equals("medium")){
+		}else if(value.equals("20")){
 			title = "中等";
-		}else if(value.equals("slow")){
+		}else if(value.equals("50")){
 			title = "较慢";
 		}			
 		list4Speed.setSummary("当前速度：" + title);

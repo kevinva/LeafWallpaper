@@ -3,12 +3,15 @@ package cn.kevin.wallpaper;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -26,6 +29,7 @@ public class LeafFallingService extends WallpaperService {
 	@Override
 	public Engine onCreateEngine() {
 		// TODO Auto-generated method stub
+		System.out.println("Service: onCreateEngine");
 		this.myEngine = new WallpaperEngine();
 		return myEngine;
 	}
@@ -35,7 +39,7 @@ public class LeafFallingService extends WallpaperService {
 		super.onDestroy();
 	}
 	
-	private class WallpaperEngine extends Engine implements OnGestureListener{
+	private class WallpaperEngine extends Engine implements OnGestureListener, OnSharedPreferenceChangeListener{
 		
 		private ArrayList<Leaf> leafList;
 		private Bitmap bitmap1;
@@ -50,9 +54,11 @@ public class LeafFallingService extends WallpaperService {
 		private GestureDetector detector;
 		private float touchX;
 		private float touchY;
+		private int interval; //涉及叶子下落速度
+		private int amount; //涉及叶子数量
 		
 		private static final int DRAW_MSG = 0;
-		private static final int MAX_SIZE = 100;
+		private static final int MAX_SIZE = 101;
 		
 		private Handler mHandler = new Handler(){
 			
@@ -86,7 +92,16 @@ public class LeafFallingService extends WallpaperService {
 			this.detector = new GestureDetector(this);
 			this.touchX = -1.0f;
 			this.touchY = -1.0f;
+			
+			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(LeafFallingService.this);
+			pref.registerOnSharedPreferenceChangeListener(this);
+			String speedStr = pref.getString("leaf_falling_speed", "20");
+			String amountStr = pref.getString("leaf_number", "75");			
+			this.interval = Integer.parseInt(speedStr);
+			this.amount = Integer.parseInt(amountStr);
+			
 			this.setTouchEventsEnabled(true);
+			
 		}		
 		
 
@@ -95,6 +110,8 @@ public class LeafFallingService extends WallpaperService {
 			// TODO Auto-generated method stub
 			System.out.println("Engine: onDestroy");
 			this.mHandler.removeMessages(DRAW_MSG);
+			PreferenceManager.getDefaultSharedPreferences(LeafFallingService.this).unregisterOnSharedPreferenceChangeListener(this);
+			
 			super.onDestroy();
 		}
 
@@ -160,7 +177,8 @@ public class LeafFallingService extends WallpaperService {
 			SurfaceHolder holder = this.getSurfaceHolder();
 			Canvas canvas = holder.lockCanvas();	
 			canvas.drawBitmap(backgroundBitmap, 0, 0, paint);
-			for(int i = 0; i < this.leafList.size(); i++){
+			int size = Math.min(this.amount, this.leafList.size());			
+			for(int i = 0; i < size; i++){
 				Leaf l = this.leafList.get(i);
 				if(l.isTouched()){
 					l.handleTouched(touchX, touchY);
@@ -171,8 +189,8 @@ public class LeafFallingService extends WallpaperService {
 				
 			}	
 			holder.unlockCanvasAndPost(canvas);
-			this.mHandler.sendEmptyMessageDelayed(DRAW_MSG, 15L);			
-			
+			this.mHandler.sendEmptyMessageDelayed(DRAW_MSG, this.interval);			
+			System.out.println("interval = " + interval + ", amount = " + amount);
 		}		
 
 
@@ -190,8 +208,9 @@ public class LeafFallingService extends WallpaperService {
 			System.out.println("onDown");
 			
 			touchX = e.getX();
-			touchY = e.getY();	
-			for(int i = 0; i < this.leafList.size(); i++){
+			touchY = e.getY();
+			int size  = Math.min(this.amount, this.leafList.size());
+			for(int i = 0; i < size; i++){
 				Leaf l = this.leafList.get(i);
 				float centerX = l.getX() + l.getBitmap().getWidth() / 2.0f;
 				float centerY = l.getY() + l.getBitmap().getHeight() / 2.0f;
@@ -245,6 +264,21 @@ public class LeafFallingService extends WallpaperService {
 			System.out.println("onFling");
 			
 			return false;
+		}
+
+
+		@Override
+		public void onSharedPreferenceChanged(
+				SharedPreferences sharedPreferences, String key) {
+			// TODO Auto-generated method stub
+			
+			if(key.equals("leaf_falling_speed")){
+				String speedStr = sharedPreferences.getString(key, "20");
+				this.interval = Integer.parseInt(speedStr);
+			}else{
+				String amountStr = sharedPreferences.getString(key, "75");
+				this.amount = Integer.parseInt(amountStr);
+			}				
 		}				
 		
 	}

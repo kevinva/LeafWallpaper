@@ -12,7 +12,7 @@
         	android:summary="@string/leaf_number_summary"
         	android:entries="@array/leaf_number_list"
         	android:entryValues="@array/leaf_number_value"
-        	android:defaultValue="normal"
+        	android:defaultValue="75"
         	/>
     	<ListPreference
         	android:key="leaf_falling_speed"
@@ -20,7 +20,7 @@
         	android:summary="@string/leaf_falling_speed_summary"
         	android:entries="@array/leaf_falling_speed_list"
        		android:entryValues="@array/leaf_falling_speed_value"
-       		android:defaultValue="medium"
+       		android:defaultValue="20"
         	/>
     </PreferenceCategory>
 </PreferenceScreen>
