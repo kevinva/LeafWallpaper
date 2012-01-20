@@ -145,6 +145,21 @@ public class LeafFallingService extends WallpaperService {
 			this.mHandler.removeMessages(DRAW_MSG);
 			super.onSurfaceDestroyed(holder);
 		}
+		
+		
+
+		@Override
+		public void onOffsetsChanged(float xOffset, float yOffset,
+				float xOffsetStep, float yOffsetStep, int xPixelOffset,
+				int yPixelOffset) {
+			// TODO Auto-generated method stub
+			super.onOffsetsChanged(xOffset, yOffset, xOffsetStep, yOffsetStep,
+					xPixelOffset, yPixelOffset);
+			
+			System.out.println("xOffset: " + xOffset + ", yOffset: " + yOffset + ", xOffsetStep: " + xOffsetStep + ", yOffsetStep: " + yOffsetStep
+					+ ", xPixelOffset: " + xPixelOffset + ", yPixelOffset: " + yPixelOffset);
+		}
+
 
 		private void drawPaper(){			
 			count++;
@@ -190,7 +205,7 @@ public class LeafFallingService extends WallpaperService {
 			}	
 			holder.unlockCanvasAndPost(canvas);
 			this.mHandler.sendEmptyMessageDelayed(DRAW_MSG, this.interval);			
-			System.out.println("interval = " + interval + ", amount = " + amount);
+			//System.out.println("interval = " + interval + ", amount = " + amount);
 		}		
 
 
