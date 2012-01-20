@@ -96,7 +96,7 @@ public class LeafFallingService extends WallpaperService {
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(LeafFallingService.this);
 			pref.registerOnSharedPreferenceChangeListener(this);
 			String speedStr = pref.getString("leaf_falling_speed", "20");
-			String amountStr = pref.getString("leaf_number", "75");			
+			String amountStr = pref.getString("leaf_number", "50");			
 			this.interval = Integer.parseInt(speedStr);
 			this.amount = Integer.parseInt(amountStr);
 			
@@ -202,7 +202,6 @@ public class LeafFallingService extends WallpaperService {
 		}
 
 
-		@Override
 		public boolean onDown(MotionEvent e) {
 			// TODO Auto-generated method stub
 			System.out.println("onDown");
@@ -226,21 +225,18 @@ public class LeafFallingService extends WallpaperService {
 		}
 
 
-		@Override
 		public void onShowPress(MotionEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
 
 
-		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
 			// TODO Auto-generated method stub
 			return false;
 		}
 
 
-		@Override
 		public boolean onScroll(MotionEvent e1, MotionEvent e2,
 				float distanceX, float distanceY) {
 			// TODO Auto-generated method stub
@@ -250,14 +246,12 @@ public class LeafFallingService extends WallpaperService {
 		}
 
 
-		@Override
 		public void onLongPress(MotionEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
 
 
-		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
 			// TODO Auto-generated method stub
@@ -267,7 +261,6 @@ public class LeafFallingService extends WallpaperService {
 		}
 
 
-		@Override
 		public void onSharedPreferenceChanged(
 				SharedPreferences sharedPreferences, String key) {
 			// TODO Auto-generated method stub
@@ -276,7 +269,7 @@ public class LeafFallingService extends WallpaperService {
 				String speedStr = sharedPreferences.getString(key, "20");
 				this.interval = Integer.parseInt(speedStr);
 			}else{
-				String amountStr = sharedPreferences.getString(key, "75");
+				String amountStr = sharedPreferences.getString(key, "50");
 				this.amount = Integer.parseInt(amountStr);
 			}				
 		}				

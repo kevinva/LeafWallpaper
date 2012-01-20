@@ -8,8 +8,8 @@
 	
 	<string-array name="leaf_number_value">
 	    <item>100</item>
-	    <item>75</item>
-	    <item>60</item>
+	    <item>50</item>
+	    <item>20</item>
 	</string-array>
 	
 	<string-array name="leaf_falling_speed_list">

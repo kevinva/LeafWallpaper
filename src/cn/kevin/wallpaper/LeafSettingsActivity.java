@@ -23,7 +23,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.list4Amount = (ListPreference)this.findPreference("leaf_number");
 		this.list4Speed = (ListPreference)this.findPreference("leaf_falling_speed");		
 		this.setLeafFallingSpeedSummary(pref.getString("leaf_falling_speed", "20"));
-		this.setLeafNumberSummary(pref.getString("leaf_number", "75"));
+		this.setLeafNumberSummary(pref.getString("leaf_number", "50"));
 	}
 
 	
@@ -33,7 +33,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	}
 	
 	
-	@Override
+	
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 		// TODO Auto-generated method stub
@@ -52,9 +52,9 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		String title = "";
 		if(value.equals("100")){
 			title = "许多";
-		}else if(value.equals("75")){
+		}else if(value.equals("50")){
 			title = "普通";
-		}else if(value.equals("60")){
+		}else if(value.equals("20")){
 			title = "少量";
 		}			
 		list4Amount.setSummary("当前数量：" + title);
