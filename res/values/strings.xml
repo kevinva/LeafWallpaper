@@ -7,9 +7,19 @@
         
     <string name="wallpaper_settings">Settings</string>
     <string name="category1">壁纸设置</string>
+    
 	<string name="leaf_number_title">叶子数量</string>
 	<string name="leaf_number_summary">当前数量：普通</string>
+	
 	<string name="leaf_falling_speed_title">叶子下落速度</string>
 	<string name="leaf_falling_speed_summary">当前速度：普通</string>
+	
+	<string name="leaf_moving_direction_title">叶子运动方向</string>
+	<string name="leaf_moving_direction_summary">当前方向：向下</string>
+	
+	<string name="background_iamge">设置背景</string>
+	
+	<string name="leaf_color_title">设置叶子颜色</string>
+	<string name="leaf_color_summary">当前颜色：随机</string>
         
 </resources>

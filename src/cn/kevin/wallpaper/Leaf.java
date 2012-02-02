@@ -8,12 +8,16 @@ import android.graphics.Paint;
 
 public class Leaf {	
 	private float x;
+	private float rawX;
 	private float y;
 	private float speedY;
 	private int heightBound;
 	private Bitmap bitmap;	
 	private float bounceOffset;
 	private boolean touched;
+	private float xOffset;
+	private int width;
+	private int height;
 
 	public Leaf(Bitmap source, int canvasHeight, int canvasWidth){		
 		Random rand = new Random();		
@@ -23,15 +27,19 @@ public class Leaf {
 		if(scaleRate <= 0.01){
 			scaleRate = 0.1f;
 		}
-		int width = (int)(source.getWidth() * scaleRate);
-		int height = (int)(source.getHeight() * scaleRate);
+		width = (int)(source.getWidth() * scaleRate);
+		height = (int)(source.getHeight() * scaleRate);
 		bitmap = Bitmap.createScaledBitmap(source, width, height, true);		
-		x = rand.nextFloat() * canvasWidth;		
+		rawX = rand.nextFloat() * canvasWidth;	
+		x = rawX;
 		y = -bitmap.getHeight();		
 		heightBound = canvasHeight + bitmap.getHeight();		
 		bounceOffset = 8.0f;
 		touched = false;
-
+		xOffset = rand.nextFloat() * 3;
+		if(xOffset >= 1.5){
+			xOffset = xOffset - 3;
+		}		
 	}
 
 	public float getX() {
@@ -70,19 +78,31 @@ public class Leaf {
 		return bitmap;
 	}
 
-	public void setBitmap(Bitmap bitmap) {
-		this.bitmap = bitmap;
+	public void setBitmap(Bitmap flag) {
+		this.bitmap = flag;
 	}
 
 	public void drawLeaf(Canvas canvas, Paint paint){		
 		canvas.drawBitmap(bitmap, x, y, paint);
 	}	
 	
-	public void handleFalling(){
-		this.y += this.speedY;		
-		if(this.y >= this.heightBound){
-			this.y = -this.bitmap.getHeight();
+	public void handleFalling(boolean fallingDown){
+		if(fallingDown){
+			this.y += this.speedY;	
+			this.x += this.xOffset;
+			if(this.y >= this.heightBound){
+				this.y = -this.bitmap.getHeight();
+				this.x = rawX;
+			}
+		}else{
+			this.y -= this.speedY;
+			this.x += this.xOffset;
+			if(this.y <= -this.bitmap.getHeight()){
+				this.y = this.heightBound;
+				this.x = rawX;
+			}
 		}
+
 	}
 	
 	public void handleTouched(float touchX, float touchY){			

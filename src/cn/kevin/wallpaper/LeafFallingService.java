@@ -56,6 +56,8 @@ public class LeafFallingService extends WallpaperService {
 		private float touchY;
 		private int interval; //涉及叶子下落速度
 		private int amount; //涉及叶子数量
+		private boolean fallingDown; //叶子运动方向
+		private String colorFlag;
 		
 		private static final int DRAW_MSG = 0;
 		private static final int MAX_SIZE = 101;
@@ -96,9 +98,16 @@ public class LeafFallingService extends WallpaperService {
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(LeafFallingService.this);
 			pref.registerOnSharedPreferenceChangeListener(this);
 			String speedStr = pref.getString("leaf_falling_speed", "20");
-			String amountStr = pref.getString("leaf_number", "50");			
+			String amountStr = pref.getString("leaf_number", "50");	
+			String directionFlag = pref.getString("leaf_moving_direction", "0");
 			this.interval = Integer.parseInt(speedStr);
 			this.amount = Integer.parseInt(amountStr);
+			if(directionFlag.equals("0")){
+				this.fallingDown = true;
+			}else{
+				this.fallingDown = false;
+			}
+			this.colorFlag = pref.getString("leaf_color", "0");
 			
 			this.setTouchEventsEnabled(true);
 			
@@ -144,9 +153,7 @@ public class LeafFallingService extends WallpaperService {
 			System.out.println("Engine: onSurfaceDestroyed");
 			this.mHandler.removeMessages(DRAW_MSG);
 			super.onSurfaceDestroyed(holder);
-		}
-		
-		
+		}		
 
 		@Override
 		public void onOffsetsChanged(float xOffset, float yOffset,
@@ -155,9 +162,10 @@ public class LeafFallingService extends WallpaperService {
 			// TODO Auto-generated method stub
 			super.onOffsetsChanged(xOffset, yOffset, xOffsetStep, yOffsetStep,
 					xPixelOffset, yPixelOffset);
-			
+			/*
 			System.out.println("xOffset: " + xOffset + ", yOffset: " + yOffset + ", xOffsetStep: " + xOffsetStep + ", yOffsetStep: " + yOffsetStep
 					+ ", xPixelOffset: " + xPixelOffset + ", yPixelOffset: " + yPixelOffset);
+			*/
 		}
 
 
@@ -169,21 +177,31 @@ public class LeafFallingService extends WallpaperService {
 			if(count % 10 == 0){
 				if(this.leafList.size() < MAX_SIZE){
 					Leaf l = null;
-					int index = rand.nextInt(3) + 1;
-					switch(index){
-					case 1:
-						l = new Leaf(bitmap1, this.heightOfCanvas, this.widthOfCanvas);
-						break;
-					case 2:
-						l = new Leaf(bitmap2, this.heightOfCanvas, this.widthOfCanvas);
-						break;
-					case 3:
-						l = new Leaf(bitmap3, this.heightOfCanvas, this.widthOfCanvas);
-						break;
-					default:
-						l = new Leaf(bitmap1, this.heightOfCanvas, this.widthOfCanvas);
-						break;					
+					Bitmap temp = bitmap1;
+					if(colorFlag.equals("0")){
+						int index = rand.nextInt(3) + 1;
+						switch(index){
+						case 1:
+							temp = bitmap1;
+							break;
+						case 2:
+							temp = bitmap2;
+							break;
+						case 3:
+							temp = bitmap3;
+							break;
+						default:
+							temp = bitmap1;
+							break;					
+						}
+					}else if(colorFlag.equals("1")){
+						temp = bitmap1;
+					}else if(colorFlag.equals("2")){
+						temp = bitmap2;
+					}else if(colorFlag.equals("3")){
+						temp = bitmap3;
 					}
+					l = new Leaf(temp, this.heightOfCanvas, this.widthOfCanvas);
 					this.leafList.add(l);				
 				}
 			}
@@ -198,14 +216,14 @@ public class LeafFallingService extends WallpaperService {
 				if(l.isTouched()){
 					l.handleTouched(touchX, touchY);
 				}else{
-					l.handleFalling();
+					l.handleFalling(this.fallingDown);
 				}		
 				l.drawLeaf(canvas, paint);
 				
 			}	
 			holder.unlockCanvasAndPost(canvas);
 			this.mHandler.sendEmptyMessageDelayed(DRAW_MSG, this.interval);			
-			//System.out.println("interval = " + interval + ", amount = " + amount);
+			System.out.println("interval = " + interval + ", amount = " + amount);
 		}		
 
 
@@ -283,10 +301,23 @@ public class LeafFallingService extends WallpaperService {
 			if(key.equals("leaf_falling_speed")){
 				String speedStr = sharedPreferences.getString(key, "20");
 				this.interval = Integer.parseInt(speedStr);
-			}else{
+				
+			}else if(key.equals("leaf_number")){
 				String amountStr = sharedPreferences.getString(key, "50");
 				this.amount = Integer.parseInt(amountStr);
-			}				
+				
+			}else if(key.equals("leaf_moving_direction")){
+				String directionFlag = sharedPreferences.getString(key, "0");
+				if(directionFlag.equals("0")){
+					this.fallingDown = true;
+				}else{
+					this.fallingDown = false;
+				}
+			
+			}else if(key.equals("leaf_color")){
+				this.colorFlag = sharedPreferences.getString(key, "0");
+				this.leafList.removeAll(leafList);
+			}			
 		}				
 		
 	}

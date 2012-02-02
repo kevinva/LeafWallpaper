@@ -4,8 +4,7 @@
 	    <item>许多</item>
 	    <item>普通</item>
 	    <item>少量</item>
-	</string-array>
-	
+	</string-array>	
 	<string-array name="leaf_number_value">
 	    <item>100</item>
 	    <item>50</item>
@@ -16,12 +15,33 @@
 	    <item>较快</item>
 	    <item>中等</item>
 	    <item>较慢</item>
-	</string-array>
-	
+	</string-array>	
 	<string-array name="leaf_falling_speed_value">
 	    <item>10</item>
 	    <item>20</item>
 	    <item>50</item>
 	</string-array>
+	
+	<string-array name="leaf_moving_list" >
+	    <item>向下</item>
+	    <item>向上</item>
+	</string-array>
+	<string-array name="leaf_moving_value">
+	    <item>0</item>
+	    <item>1</item>
+	</string-array>
+	
+	<string-array name="leaf_color_list">
+	    <item>黄</item>
+	    <item>红</item>
+	    <item>蓝</item>
+	    <item>随机</item>
+	</string-array>
+    <string-array name="leaf_color_value">
+  		<item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>0</item>
+    </string-array>
     
 </resources>

@@ -22,5 +22,22 @@
        		android:entryValues="@array/leaf_falling_speed_value"
        		android:defaultValue="20"
         	/>
+        <ListPreference
+        	android:key="leaf_moving_direction"
+        	android:title="@string/leaf_moving_direction_title"
+        	android:summary="@string/leaf_moving_direction_summary"
+        	android:entries="@array/leaf_moving_list"
+        	android:entryValues="@array/leaf_moving_value"
+        	android:defaultValue="0"
+        	/>
+        <ListPreference
+        	android:key="leaf_color"
+        	android:title="@string/leaf_color_title"
+        	android:summary="@string/leaf_color_summary"
+        	android:entries="@array/leaf_color_list"
+        	android:entryValues="@array/leaf_color_value"
+        	android:defaultValue="0"
+        	/>
+        	
     </PreferenceCategory>
 </PreferenceScreen>
