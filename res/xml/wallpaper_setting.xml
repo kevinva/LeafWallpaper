@@ -38,6 +38,14 @@
         	android:entryValues="@array/leaf_color_value"
         	android:defaultValue="0"
         	/>
+        <ListPreference
+        	android:key="paper_background"
+        	android:title="@string/paper_bg_title"
+        	android:summary="@string/paper_bg_summary"
+        	android:entries="@array/paper_bg_list"
+        	android:entryValues="@array/paper_bg_value"
+        	android:defaultValue="0"
+        	/>
         	
     </PreferenceCategory>
 </PreferenceScreen>

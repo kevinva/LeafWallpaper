@@ -1,12 +1,18 @@
 package cn.kevin.wallpaper;
 
 
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+
 
 public class LeafSettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener{
 
@@ -14,6 +20,8 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	private ListPreference list4Speed;
 	private ListPreference list4MovingDirection;
 	private ListPreference list4Color;
+	private ListPreference list4Bg;
+	private String prevBgFile = null;
 	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -26,10 +34,19 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.list4Speed = (ListPreference)this.findPreference("leaf_falling_speed");
 		this.list4MovingDirection = (ListPreference)this.findPreference("leaf_moving_direction");
 		this.list4Color = (ListPreference)this.findPreference("leaf_color");
+		this.list4Bg = (ListPreference)this.findPreference("paper_background");
 		this.setLeafFallingSpeedSummary(pref.getString("leaf_falling_speed", "20"));
 		this.setLeafNumberSummary(pref.getString("leaf_number", "50"));
 		this.setLeafMovingDirectionSummary(pref.getString("leaf_moving_direction", "0"));
 		this.setLeafColorSummary(pref.getString("leaf_color", "0"));
+		
+		this.prevBgFile = pref.getString("paper_background", "0");
+		if(this.prevBgFile.equals("0")){
+			this.list4Bg.setSummary("当前背景：默认");
+		}else{
+			this.list4Bg.setSummary("当前背景：" + this.prevBgFile);
+		}		
+		
 	}
 
 	
@@ -56,6 +73,18 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		}else if(key.equals("leaf_color")){
 			this.setLeafColorSummary(this.list4Color.getValue());
 			
+		}else if(key.equals("paper_background")){
+			String value = this.list4Bg.getValue();
+			
+			if(value.equals("1")){
+				Intent intent = new Intent();
+				intent.setType("image/*");
+				intent.setAction(Intent.ACTION_GET_CONTENT);
+				this.startActivityForResult(intent, 1);
+			}else if(value.equals("0")){
+				this.list4Bg.setSummary("当前背景：默认");
+				this.prevBgFile = value;
+			}
 		}
 	}
 	
@@ -107,4 +136,28 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.list4Color.setSummary("当前颜色：" + title);
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		//System.out.println("resultCode: " + resultCode + ", requestCode: " + requestCode);
+		
+		if(resultCode == Activity.RESULT_OK){
+			Uri uri = data.getData();
+			System.out.println("Uri: " + uri);
+			ContentResolver cr = this.getContentResolver();
+			Cursor cursor = cr.query(uri, null, null, null, null);
+			while(cursor.moveToNext()){			
+				System.out.println("_id:" + cursor.getString(0) + ", path:" + cursor.getString(1) + 
+						", size:" + cursor.getString(2) + ", name:" + cursor.getString(3));
+				
+				this.prevBgFile = uri.toString();
+				this.list4Bg.setSummary("当前背景：" + cursor.getString(3));
+				this.list4Bg.setValue(this.prevBgFile); 
+			}			
+		}else{
+			this.list4Bg.setValue(this.prevBgFile);
+		}
+		
+	}
 }

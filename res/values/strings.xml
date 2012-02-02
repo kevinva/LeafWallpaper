@@ -17,9 +17,10 @@
 	<string name="leaf_moving_direction_title">叶子运动方向</string>
 	<string name="leaf_moving_direction_summary">当前方向：向下</string>
 	
-	<string name="background_iamge">设置背景</string>
+	<string name="paper_bg_title">壁纸背景</string>
+	<string name="paper_bg_summary">当前背景：默认</string>
 	
-	<string name="leaf_color_title">设置叶子颜色</string>
+	<string name="leaf_color_title">叶子颜色</string>
 	<string name="leaf_color_summary">当前颜色：随机</string>
         
 </resources>

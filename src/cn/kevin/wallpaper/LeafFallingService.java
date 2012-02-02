@@ -1,5 +1,7 @@
 package cn.kevin.wallpaper;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -46,6 +49,7 @@ public class LeafFallingService extends WallpaperService {
 		private Bitmap bitmap2;
 		private Bitmap bitmap3;
 		private Bitmap backgroundBitmap;
+		private Bitmap defaultBackgroud;
 		private Paint paint;
 		private int count;
 		private int heightOfCanvas;
@@ -86,7 +90,7 @@ public class LeafFallingService extends WallpaperService {
 			this.bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.flower1);
 			this.bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.flower2);
 			this.bitmap3 = BitmapFactory.decodeResource(getResources(), R.drawable.flower3);
-			this.backgroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+			this.defaultBackgroud = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 			this.paint = new Paint();
 			this.paint.setAntiAlias(true);
 			this.count = -1;
@@ -98,16 +102,17 @@ public class LeafFallingService extends WallpaperService {
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(LeafFallingService.this);
 			pref.registerOnSharedPreferenceChangeListener(this);
 			String speedStr = pref.getString("leaf_falling_speed", "20");
-			String amountStr = pref.getString("leaf_number", "50");	
-			String directionFlag = pref.getString("leaf_moving_direction", "0");
+			String amountStr = pref.getString("leaf_number", "50");				
 			this.interval = Integer.parseInt(speedStr);
 			this.amount = Integer.parseInt(amountStr);
+			this.colorFlag = pref.getString("leaf_color", "0");
+			
+			String directionFlag = pref.getString("leaf_moving_direction", "0");
 			if(directionFlag.equals("0")){
 				this.fallingDown = true;
 			}else{
 				this.fallingDown = false;
 			}
-			this.colorFlag = pref.getString("leaf_color", "0");
 			
 			this.setTouchEventsEnabled(true);
 			
@@ -141,6 +146,24 @@ public class LeafFallingService extends WallpaperService {
 			this.heightOfCanvas = canvas.getHeight();
 			this.widthOfCanvas = canvas.getWidth();
 			System.out.println("Width = " + widthOfCanvas + ", Height = " + heightOfCanvas);
+			
+			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(LeafFallingService.this);
+			String bgUriStr = pref.getString("paper_background", "0");
+			if(bgUriStr.equals("0")){
+				this.backgroundBitmap = this.defaultBackgroud;
+			}else{
+				Uri uri = Uri.parse(bgUriStr);
+				try {
+					InputStream is = LeafFallingService.this.getContentResolver().openInputStream(uri);
+					Bitmap temp = BitmapFactory.decodeStream(is);
+					this.backgroundBitmap = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					this.backgroundBitmap = this.defaultBackgroud;
+				}
+			}
+			
 			holder.unlockCanvasAndPost(canvas);
 			
 			this.mHandler.sendEmptyMessage(DRAW_MSG);
@@ -223,7 +246,7 @@ public class LeafFallingService extends WallpaperService {
 			}	
 			holder.unlockCanvasAndPost(canvas);
 			this.mHandler.sendEmptyMessageDelayed(DRAW_MSG, this.interval);			
-			System.out.println("interval = " + interval + ", amount = " + amount);
+			//System.out.println("interval = " + interval + ", amount = " + amount);
 		}		
 
 
@@ -316,8 +339,25 @@ public class LeafFallingService extends WallpaperService {
 			
 			}else if(key.equals("leaf_color")){
 				this.colorFlag = sharedPreferences.getString(key, "0");
-				this.leafList.removeAll(leafList);
-			}			
+				this.leafList.removeAll(leafList);				
+
+			}else if(key.equals("paper_background")){
+				String value = sharedPreferences.getString(key, "0");
+				if(value.equals("0")){
+					this.backgroundBitmap = this.defaultBackgroud;
+				}else{
+					Uri uri = Uri.parse(value);
+					try {
+						InputStream is = LeafFallingService.this.getContentResolver().openInputStream(uri);
+						Bitmap temp = BitmapFactory.decodeStream(is);
+						this.backgroundBitmap = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						this.backgroundBitmap = this.defaultBackgroud;
+					}
+				}
+			}
 		}				
 		
 	}
