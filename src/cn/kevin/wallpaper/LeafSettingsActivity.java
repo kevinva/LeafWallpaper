@@ -21,6 +21,11 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	private ListPreference list4MovingDirection;
 	private ListPreference list4Color;
 	private ListPreference list4Bg;
+	private MyImagePreference imagePreference1;
+	private MyImagePreference imagePreference2;
+	private MyImagePreference imagePreference3;
+	private MyImagePreference imagePreference4;
+	
 	private String prevBgFile = null;
 	
 	protected void onCreate(Bundle savedInstanceState){
@@ -46,6 +51,20 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		}else{
 			this.list4Bg.setSummary("µ±Ç°±³¾°£º" + this.prevBgFile);
 		}		
+		
+		//this.imagePreference1 = (MyImagePreference)this.findPreference("recommend1");
+		//this.imagePreference1.title = this.getResources().getString(R.string.recommend1_title);
+		//this.imagePreference1.mImage = R.drawable.ic_launcher;
+		this.imagePreference2 = (MyImagePreference)this.findPreference("recommend2");
+		this.imagePreference2.title = this.getResources().getString(R.string.recommend2_title);
+		this.imagePreference2.mImage = R.drawable.ic_launcher;		
+		this.imagePreference3 = (MyImagePreference)this.findPreference("recommend3");
+		this.imagePreference3.title = this.getResources().getString(R.string.recommend3_title);
+		this.imagePreference3.mImage = R.drawable.ic_launcher;
+		this.imagePreference4 = (MyImagePreference)this.findPreference("recommend4");
+		this.imagePreference4.title = this.getResources().getString(R.string.recommend4_title);
+		this.imagePreference4.mImage = R.drawable.ic_launcher;
+		
 		
 	}
 

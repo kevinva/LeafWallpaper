@@ -45,7 +45,30 @@
         	android:entries="@array/paper_bg_list"
         	android:entryValues="@array/paper_bg_value"
         	android:defaultValue="0"
-        	/>
-        	
+        	/>        	
     </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/category2"
+        >        
+
+        
+        <Preference 
+            android:key="recommend1"
+            android:persistent="false"
+            android:widgetLayout="@layout/test"
+            />
+        <cn.kevin.wallpaper.MyImagePreference 
+            android:key="recommend2"
+            android:widgetLayout="@layout/image_preference"
+            />
+        <cn.kevin.wallpaper.MyImagePreference 
+            android:key="recommend3"
+            android:widgetLayout="@layout/image_preference"
+            />
+        <cn.kevin.wallpaper.MyImagePreference 
+            android:key="recommend4"
+            android:widgetLayout="@layout/image_preference"
+            />
+	</PreferenceCategory>
 </PreferenceScreen>
