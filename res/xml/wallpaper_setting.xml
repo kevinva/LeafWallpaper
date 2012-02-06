@@ -50,25 +50,27 @@
     
     <PreferenceCategory
         android:title="@string/category2"
-        >        
-
-        
-        <Preference 
+        >       
+        <cn.kevin.wallpaper.MyImagePreference 
             android:key="recommend1"
-            android:persistent="false"
-            android:widgetLayout="@layout/test"
-            />
+            android:layout="@layout/image_preference"
+            />		
         <cn.kevin.wallpaper.MyImagePreference 
             android:key="recommend2"
-            android:widgetLayout="@layout/image_preference"
+            android:layout="@layout/image_preference"
             />
         <cn.kevin.wallpaper.MyImagePreference 
             android:key="recommend3"
-            android:widgetLayout="@layout/image_preference"
+            android:layout="@layout/image_preference"
             />
         <cn.kevin.wallpaper.MyImagePreference 
             android:key="recommend4"
-            android:widgetLayout="@layout/image_preference"
+            android:layout="@layout/image_preference"
             />
+            
+        <!-- 占位用 -->
+        <Preference 
+        	android:title=""
+        />
 	</PreferenceCategory>
 </PreferenceScreen>

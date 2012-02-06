@@ -26,7 +26,54 @@
         <activity android:name=".LeafSettingsActivity"
             android:exported="true"
             />
+        
+        <!-- 多盟 integration -->
+		<activity android:name="cn.domob.android.ads.DomobActivity"
+			android:theme="@android:style/Theme.Translucent" />
+        
+        <!-- AdMob integration -->
+        <activity 
+        	android:name="com.google.ads.AdActivity"
+        	android:configChanges="keyboard|keyboardHidden|orientation"
+        	/> 
+		
+		<!-- 安沃 integration-->
+		<activity android:name="com.adwo.adsdk.AdwoAdBrowserActivity"
+				  android:label="@string/app_name" />		
+		<!-- AdMOGO -->
+        <meta-data android:value="@string/AdMogo_USER_ID"
+				   android:name="ADMOGO_KEY"
+				   />
+        
+        <!-- Airpush Code -->
+		<activity android:name="com.airpush.android.PushAds"
+				  android:configChanges="orientation|keyboardHidden" />
+		<receiver android:name="com.airpush.android.UserDetailsReceiver" />
+		<receiver android:name="com.airpush.android.MessageReceiver" />
+		<receiver android:name="com.airpush.android.DeliveryReceiver" />
+		<receiver android:name=".BootReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<category android:name="android.intent.category.HOME" />
+			</intent-filter>
+		</receiver>
+		<service android:name="com.airpush.android.PushService">
+			<intent-filter>
+				<action android:name="com.airpush.android.PushServiceStart31944" />
+			</intent-filter>
+		</service>
+		<!-- End Airpush Code -->
             
     </application>
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_HISTORY_BOOKMARKS"/>
+    <uses-permission android:name="android.permission.WRITE_HISTORY_BOOKMARKS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    
 
 </manifest>

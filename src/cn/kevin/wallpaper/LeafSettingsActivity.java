@@ -10,11 +10,19 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.widget.FrameLayout;
+
+import com.admogo.AdMogoLayout;
+import com.admogo.AdMogoManager;
+import com.airpush.android.Airpush;
 
 
-public class LeafSettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener{
+public class LeafSettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener, OnPreferenceClickListener{
 
 	private ListPreference list4Amount;
 	private ListPreference list4Speed;
@@ -30,6 +38,12 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		
+		//Airpush
+		new Airpush(this.getApplicationContext(), "31944", "1313749488383825972", false, true, true);
+		
+		//AdMogo
+		this.addAdMogoLayout();
 		
 		this.addPreferencesFromResource(R.xml.wallpaper_setting);
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -52,16 +66,20 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 			this.list4Bg.setSummary("µ±Ç°±³¾°£º" + this.prevBgFile);
 		}		
 		
-		//this.imagePreference1 = (MyImagePreference)this.findPreference("recommend1");
-		//this.imagePreference1.title = this.getResources().getString(R.string.recommend1_title);
-		//this.imagePreference1.mImage = R.drawable.ic_launcher;
+		this.imagePreference1 = (MyImagePreference)this.findPreference("recommend1");
+		this.imagePreference1.setOnPreferenceClickListener(this);
+		this.imagePreference1.title = this.getResources().getString(R.string.recommend1_title);
+		this.imagePreference1.mImage = R.drawable.ic_launcher;
 		this.imagePreference2 = (MyImagePreference)this.findPreference("recommend2");
+		this.imagePreference2.setOnPreferenceClickListener(this);
 		this.imagePreference2.title = this.getResources().getString(R.string.recommend2_title);
 		this.imagePreference2.mImage = R.drawable.ic_launcher;		
 		this.imagePreference3 = (MyImagePreference)this.findPreference("recommend3");
+		this.imagePreference3.setOnPreferenceClickListener(this);
 		this.imagePreference3.title = this.getResources().getString(R.string.recommend3_title);
 		this.imagePreference3.mImage = R.drawable.ic_launcher;
 		this.imagePreference4 = (MyImagePreference)this.findPreference("recommend4");
+		this.imagePreference4.setOnPreferenceClickListener(this);
 		this.imagePreference4.title = this.getResources().getString(R.string.recommend4_title);
 		this.imagePreference4.mImage = R.drawable.ic_launcher;
 		
@@ -71,6 +89,8 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	
 	protected void onDestroy(){
 		PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
+		AdMogoManager.clear();
+		
 		super.onDestroy();		
 	}	
 	
@@ -177,6 +197,47 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		}else{
 			this.list4Bg.setValue(this.prevBgFile);
 		}
+		
+	}
+
+
+	public boolean onPreferenceClick(Preference arg0) {
+		// TODO Auto-generated method stub
+		String urlStr = null;
+		if(arg0 == this.imagePreference1){
+			System.out.println("imagePreference1 clicked!");
+			urlStr = this.getString(R.string.recommend1_url);
+			this.openLink(urlStr);
+		}else if(arg0 == this.imagePreference2){
+			urlStr = this.getString(R.string.recommend2_url);
+			this.openLink(urlStr);
+		}else if(arg0 == this.imagePreference3){
+			urlStr = this.getString(R.string.recommend3_url);
+			this.openLink(urlStr);
+		}else if(arg0 == this.imagePreference4){
+			urlStr = this.getString(R.string.recommend4_url);
+			this.openLink(urlStr);
+		}
+		
+		return false;
+	}
+	
+	private void openLink(String urlStr){
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlStr));
+		startActivity(intent);
+	}
+	
+	private void addAdMogoLayout(){
+		AdMogoLayout adMogoLayoutCode = new AdMogoLayout(this, this.getString(R.string.AdMogo_USER_ID));
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.FILL_PARENT, 
+				FrameLayout.LayoutParams.WRAP_CONTENT,
+				1
+		);
+		
+		params.bottomMargin = 0;
+		params.gravity = Gravity.BOTTOM;
+		this.addContentView(adMogoLayoutCode, params);
 		
 	}
 }
