@@ -1,32 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World!</string>
     <string name="app_name">LeafFallingWallpaper</string>
-    <string name="wallpaper_description">叶子轻轻飘落 build2</string>
+    <string name="wallpaper_description">Leaves is falling gently -build2</string>
         
     <string name="wallpaper_settings">Settings</string>
-    <string name="category1">壁纸设置</string>
-    <string name="category2">壁纸推荐</string>
+    <string name="category1">Paper Settings</string>
+    <string name="category2">Paper recommends</string>
     
-	<string name="leaf_number_title">叶子数量</string>
-	<string name="leaf_number_summary">当前数量：普通</string>
+	<string name="leaf_number_title">Leaf\'s amount</string>
+	<string name="leaf_number_summary">Current amount: normal</string>
+	<string name="leaf_number_summary_prefix">Current amount</string>
+	<string name="leaf_number_many">many</string>
+	<string name="leaf_number_normal">normal</string>
+	<string name="leaf_number_few">few</string>
 	
-	<string name="leaf_falling_speed_title">叶子运动速度</string>
-	<string name="leaf_falling_speed_summary">当前速度：普通</string>
+	<string name="leaf_falling_speed_title">Leaf\'s speed</string>
+	<string name="leaf_falling_speed_summary">current speed: medium</string>
+	<string name="leaf_falling_speed_summary_prefix">current speed</string>
+	<string name="leaf_speed_fast">fast</string>
+	<string name="leaf_speed_medium">medium</string>
+	<string name="leaf_speed_slow">slow</string>
 	
-	<string name="leaf_moving_direction_title">叶子运动方向</string>
-	<string name="leaf_moving_direction_summary">当前方向：向下</string>
+	<string name="leaf_moving_direction_title">Leaf\'s moving direction</string>
+	<string name="leaf_moving_direction_summary">current direction: downward</string>
+	<string name="leaf_moving_direction_summary_prefix">current direction</string>
+	<string name="leaf_direction_upward">upward</string>
+	<string name="leaf_direction_downward">downward</string>
 	
-	<string name="paper_bg_title">壁纸背景</string>
-	<string name="paper_bg_summary">当前背景：默认</string>
+	<string name="paper_bg_title">Background</string>
+	<string name="paper_bg_summary">current background: background1</string>
+	<string name="paper_bg_summary_prefix">current background</string>
+	<string name="paper_bg_1">background1</string>
+	<string name="paper_bg_2">background2</string>
+	<string name="paper_bg_3">background3</string>
 	
-	<string name="leaf_color_title">叶子颜色</string>
-	<string name="leaf_color_summary">当前颜色：随机</string>
+	<string name="leaf_color_title">Leaf\'s color</string>
+	<string name="leaf_color_summary">current color: random</string>
+	<string name="leaf_color_summary_prefix">current color</string>
+	<string name="leaf_color_random">random</string>
+	<string name="leaf_color_red">red</string>
+	<string name="leaf_color_blue">blue</string>
+	<string name="leaf_color_yellow">yellow</string>
 	
-	<string name="recommend1_title">推荐1</string>
-	<string name="recommend2_title">推荐2</string>
-	<string name="recommend3_title">推荐3</string>
+	<string name="recommend1_title">Recommend1</string>
+	<string name="recommend2_title">Recommend2</string>
+	<string name="recommend3_title">Recommend3</string>
 	<string name="recommend1_url">market://search?q=pub:\"Ringtone Soundboard\"</string>
 	<string name="recommend2_url">http://www.baidu.com</string>
 	<string name="recommend3_url">http://google.com</string>

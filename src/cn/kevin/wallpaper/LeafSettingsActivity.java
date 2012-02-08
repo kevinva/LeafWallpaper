@@ -134,61 +134,61 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	private void setLeafNumberSummary(String value){		
 		String title = "";
 		if(value.equals("100")){
-			title = "许多";
+			title = this.getString(R.string.leaf_number_many);
 		}else if(value.equals("50")){
-			title = "普通";
+			title = this.getString(R.string.leaf_number_normal);
 		}else if(value.equals("20")){
-			title = "少量";
+			title = this.getString(R.string.leaf_number_few);
 		}			
-		list4Amount.setSummary("当前数量：" + title);
+		list4Amount.setSummary(this.getString(R.string.leaf_number_summary_prefix) + ": " + title);
 	}
 	
 	private void setLeafFallingSpeedSummary(String value){
 		String title = "";
 		if(value.equals("10")){
-			title = "较快";
+			title = this.getString(R.string.leaf_speed_fast);
 		}else if(value.equals("20")){
-			title = "中等";
+			title = this.getString(R.string.leaf_speed_medium);
 		}else if(value.equals("50")){
-			title = "较慢";
+			title = this.getString(R.string.leaf_speed_slow);
 		}			
-		list4Speed.setSummary("当前速度：" + title);
+		list4Speed.setSummary(this.getString(R.string.leaf_falling_speed_summary_prefix) + ": " + title);
 	}
 	
 	private void setLeafMovingDirectionSummary(String value){
 		String title = "";
 		if(value.equals("0")){
-			title = "向下";
+			title = this.getString(R.string.leaf_direction_downward);
 		}else if(value.equals("1")){
-			title = "向上";
+			title = this.getString(R.string.leaf_direction_upward);
 		}		
-		list4MovingDirection.setSummary("当前方向：" + title);
+		list4MovingDirection.setSummary(this.getString(R.string.leaf_moving_direction_summary_prefix) + ": " + title);
 	}
 	
 	private void setLeafColorSummary(String value){
 		String title = "";
 		if(value.equals("0")){
-			title = "随机";
+			title = this.getString(R.string.leaf_color_random);
 		}else if(value.equals("1")){
-			title = "黄";
+			title = this.getString(R.string.leaf_color_yellow);
 		}else if(value.equals("2")){
-			title = "红";
+			title = this.getString(R.string.leaf_color_red);
 		}else if(value.equals("3")){
-			title = "蓝";
+			title = this.getString(R.string.leaf_color_blue);
 		}
-		this.list4Color.setSummary("当前颜色：" + title);
+		this.list4Color.setSummary(this.getString(R.string.leaf_color_summary_prefix) + ": " + title);
 	}
 	
 	private void setBackgroundSummary(String value){
 		String title = "";
 		if(value.equals("0")){
-			title = "背景1";
+			title = this.getString(R.string.paper_bg_1);
 		}else if(value.equals("1")){
-			title = "背景2";
+			title = this.getString(R.string.paper_bg_2);
 		}else if(value.equals("2")){
-			title = "背景3";
+			title = this.getString(R.string.paper_bg_3);
 		}
-		this.list4Bg.setSummary("当前颜色：" + title);
+		this.list4Bg.setSummary(this.getString(R.string.paper_bg_summary_prefix) + ": " + title);
 	}
 
 	/*

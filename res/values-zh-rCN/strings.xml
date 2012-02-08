@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">叶子飘落壁纸</string>
+    <string name="wallpaper_description">叶子轻轻飘落- build2</string>
+        
+    <string name="wallpaper_settings">设置</string>
+    <string name="category1">壁纸设置</string>
+    <string name="category2">壁纸推荐</string>
+    
+	<string name="leaf_number_title">叶子数量</string>
+	<string name="leaf_number_summary">当前数量: 普通</string>
+	<string name="leaf_number_summary_prefix">当前数量</string>
+	<string name="leaf_number_many">许多</string>
+	<string name="leaf_number_normal">普通</string>
+	<string name="leaf_number_few">少量</string>
+	
+	<string name="leaf_falling_speed_title">叶子运动速度</string>
+	<string name="leaf_falling_speed_summary">当前速度: 中等</string>
+	<string name="leaf_falling_speed_summary_prefix">当前速度</string>
+	<string name="leaf_speed_fast">较快</string>
+	<string name="leaf_speed_medium">中等</string>
+	<string name="leaf_speed_slow">较慢</string>
+	
+	<string name="leaf_moving_direction_title">叶子运动方向</string>
+	<string name="leaf_moving_direction_summary">当前方向: 向下</string>
+	<string name="leaf_moving_direction_summary_prefix">当前方向</string>
+	<string name="leaf_direction_upward">向上</string>
+	<string name="leaf_direction_downward">向下</string>
+	
+	<string name="paper_bg_title">壁纸背景</string>
+	<string name="paper_bg_summary">当前背景: 背景1</string>
+	<string name="paper_bg_summary_prefix">当前背景</string>
+	<string name="paper_bg_1">背景1</string>
+	<string name="paper_bg_2">背景2</string>
+	<string name="paper_bg_3">背景3</string>
+	
+	<string name="leaf_color_title">叶子颜色</string>
+	<string name="leaf_color_summary">当前颜色: 随机</string>
+	<string name="leaf_color_summary_prefix">当前颜色</string>
+	<string name="leaf_color_random">随机</string>
+	<string name="leaf_color_red">红</string>
+	<string name="leaf_color_blue">蓝</string>
+	<string name="leaf_color_yellow">黄</string>
+	
+	<string name="recommend1_title">推荐1</string>
+	<string name="recommend2_title">推荐2</string>
+	<string name="recommend3_title">推荐3</string>
+
+</resources>

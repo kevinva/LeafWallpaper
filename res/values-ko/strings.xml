@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">떨어지는 배경 화면을 남겼더군요</string>
+    <string name="wallpaper_description">부드럽게 떨어지는 남았- build2</string>
+        
+    <string name="wallpaper_settings">설정</string>
+    <string name="category1">배경 화면 설정</string>
+    <string name="category2">배경 화면</string>
+    
+	<string name="leaf_number_title">잎 번호</string>
+	<string name="leaf_number_summary">의 현재 번호: 보통의</string>
+	<string name="leaf_number_summary_prefix">의 현재 번호</string>
+	<string name="leaf_number_many">많은</string>
+	<string name="leaf_number_normal">보통의</string>
+	<string name="leaf_number_few">작은</string>
+	
+	<string name="leaf_falling_speed_title">잎 속도</string>
+	<string name="leaf_falling_speed_summary">현재 속도: 매질</string>
+	<string name="leaf_falling_speed_summary_prefix">현재 속도</string>
+	<string name="leaf_speed_fast">빠른</string>
+	<string name="leaf_speed_medium">매질</string>
+	<string name="leaf_speed_slow">더 천천히</string>
+	
+	<string name="leaf_moving_direction_title">잎 운동의 방향</string>
+	<string name="leaf_moving_direction_summary">현재 방향: 아래로</string>
+	<string name="leaf_moving_direction_summary_prefix">현재 방향</string>
+	<string name="leaf_direction_upward">최대</string>
+	<string name="leaf_direction_downward">아래로</string>
+	
+	<string name="paper_bg_title">바탕 화면 배경</string>
+	<string name="paper_bg_summary">현재 배경: 배경 1</string>
+	<string name="paper_bg_summary_prefix">현재 배경</string>
+	<string name="paper_bg_1">배경1</string>
+	<string name="paper_bg_2">배경2</string>
+	<string name="paper_bg_3">배경3</string>
+	
+	<string name="leaf_color_title">잎 색깔</string>
+	<string name="leaf_color_summary">현재 색상: 랜덤</string>
+	<string name="leaf_color_summary_prefix">현재 색상</string>
+	<string name="leaf_color_random">랜덤</string>
+	<string name="leaf_color_red">빨강</string>
+	<string name="leaf_color_blue">푸른</string>
+	<string name="leaf_color_yellow">황색</string>
+	
+	<string name="recommend1_title">추천1</string>
+	<string name="recommend2_title">추천2</string>
+	<string name="recommend3_title">추천3</string>
+
+</resources>

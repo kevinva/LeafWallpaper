@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string-array name="leaf_number_list">
-	    <item>many</item>
-	    <item>normal</item>
-	    <item>few</item>
+	    <item>许多</item>
+	    <item>普通</item>
+	    <item>少量</item>
 	</string-array>	
 	<string-array name="leaf_number_value">
 	    <item>100</item>
@@ -12,9 +12,9 @@
 	</string-array>
 	
 	<string-array name="leaf_falling_speed_list">
-	    <item>fast</item>
-	    <item>medium</item>
-	    <item>slow</item>
+	    <item>较快</item>
+	    <item>中等</item>
+	    <item>较慢</item>
 	</string-array>	
 	<string-array name="leaf_falling_speed_value">
 	    <item>10</item>
@@ -23,8 +23,8 @@
 	</string-array>
 	
 	<string-array name="leaf_moving_list" >
-	    <item>downward</item>
-	    <item>upward</item>
+	    <item>向下</item>
+	    <item>向上</item>
 	</string-array>
 	<string-array name="leaf_moving_value">
 	    <item>0</item>
@@ -32,10 +32,10 @@
 	</string-array>
 	
 	<string-array name="leaf_color_list">
-	    <item>yellow</item>
-	    <item>red</item>
-	    <item>blue</item>
-	    <item>random</item>
+	    <item>黄</item>
+	    <item>红</item>
+	    <item>蓝</item>
+	    <item>随机</item>
 	</string-array>
     <string-array name="leaf_color_value">
   		<item>1</item>
@@ -45,9 +45,9 @@
     </string-array>
     
     <string-array name="paper_bg_list">
-	    <item>background1</item>
-	    <item>background2</item>
-	    <item>background3</item>
+	    <item>背景1</item>
+	    <item>背景2</item>
+	    <item>背景3</item>
 	</string-array>
     <string-array name="paper_bg_value">
   		<item>0</item>
