@@ -27,11 +27,10 @@
 	<string name="recommend1_title">推荐1</string>
 	<string name="recommend2_title">推荐2</string>
 	<string name="recommend3_title">推荐3</string>
-	<string name="recommend4_title">推荐4</string>
 	<string name="recommend1_url">market://search?q=pub:\"Ringtone Soundboard\"</string>
-	<string name="recommend2_url">market://search?q=pub:\"Ringtone Soundboard\"</string>
-	<string name="recommend3_url">market://search?q=pub:\"Ringtone Soundboard\"</string>
-	<string name="recommend4_url">market://search?q=pub:\"Ringtone Soundboard\"</string>
+	<string name="recommend2_url">http://www.baidu.com</string>
+	<string name="recommend3_url">http://google.com</string>
+
     <string name="AdMogo_USER_ID">3a9dd8eb23b84f5db803f968f53f3635</string>
     <string name="AdMogo_USER_ID2">40b158bf3bef40cfba79b6977b05266a</string>
 </resources>

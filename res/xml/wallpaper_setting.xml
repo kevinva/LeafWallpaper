@@ -62,12 +62,7 @@
         <cn.kevin.wallpaper.MyImagePreference 
             android:key="recommend3"
             android:layout="@layout/image_preference"
-            />
-        <cn.kevin.wallpaper.MyImagePreference 
-            android:key="recommend4"
-            android:layout="@layout/image_preference"
-            />
-            
+            />            
         <!-- 占位用 -->
         <Preference 
         	android:title=""

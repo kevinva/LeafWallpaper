@@ -1,7 +1,5 @@
 package cn.kevin.wallpaper;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,7 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.net.Uri;
+
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -48,8 +46,9 @@ public class LeafFallingService extends WallpaperService {
 		private Bitmap bitmap1;
 		private Bitmap bitmap2;
 		private Bitmap bitmap3;
-		private Bitmap backgroundBitmap;
-		private Bitmap defaultBackgroud;
+		private Bitmap backgroundBitmap1;
+		private Bitmap backgroundBitmap2;
+		private Bitmap backgroundBitmap3;
 		private Paint paint;
 		private int count;
 		private int heightOfCanvas;
@@ -62,6 +61,7 @@ public class LeafFallingService extends WallpaperService {
 		private int amount; //涉及叶子数量
 		private boolean fallingDown; //叶子运动方向
 		private String colorFlag;
+		private String backgroundFlag;
 		
 		private static final int DRAW_MSG = 0;
 		private static final int MAX_SIZE = 101;
@@ -90,7 +90,6 @@ public class LeafFallingService extends WallpaperService {
 			this.bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.flower1);
 			this.bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.flower2);
 			this.bitmap3 = BitmapFactory.decodeResource(getResources(), R.drawable.flower3);
-			this.defaultBackgroud = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 			this.paint = new Paint();
 			this.paint.setAntiAlias(true);
 			this.count = -1;
@@ -106,7 +105,7 @@ public class LeafFallingService extends WallpaperService {
 			this.interval = Integer.parseInt(speedStr);
 			this.amount = Integer.parseInt(amountStr);
 			this.colorFlag = pref.getString("leaf_color", "0");
-			
+			this.backgroundFlag = pref.getString("paper_background", "0");
 			String directionFlag = pref.getString("leaf_moving_direction", "0");
 			if(directionFlag.equals("0")){
 				this.fallingDown = true;
@@ -147,22 +146,12 @@ public class LeafFallingService extends WallpaperService {
 			this.widthOfCanvas = canvas.getWidth();
 			System.out.println("Width = " + widthOfCanvas + ", Height = " + heightOfCanvas);
 			
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(LeafFallingService.this);
-			String bgUriStr = pref.getString("paper_background", "0");
-			if(bgUriStr.equals("0")){
-				this.backgroundBitmap = this.defaultBackgroud;
-			}else{
-				Uri uri = Uri.parse(bgUriStr);
-				try {
-					InputStream is = LeafFallingService.this.getContentResolver().openInputStream(uri);
-					Bitmap temp = BitmapFactory.decodeStream(is);
-					this.backgroundBitmap = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					this.backgroundBitmap = this.defaultBackgroud;
-				}
-			}
+			Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+			this.backgroundBitmap1 = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);
+			temp = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
+			this.backgroundBitmap2 = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);
+			temp = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+			this.backgroundBitmap3 = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);	
 			
 			holder.unlockCanvasAndPost(canvas);
 			
@@ -232,7 +221,15 @@ public class LeafFallingService extends WallpaperService {
 			
 			SurfaceHolder holder = this.getSurfaceHolder();
 			Canvas canvas = holder.lockCanvas();	
-			canvas.drawBitmap(backgroundBitmap, 0, 0, paint);
+			Bitmap currentBitmap = null;
+			if(this.backgroundFlag.equals("0")){
+				currentBitmap = this.backgroundBitmap1;
+			}else if(this.backgroundFlag.equals("1")){
+				currentBitmap = this.backgroundBitmap2;
+			}else if(this.backgroundFlag.equals("2")){
+				currentBitmap = this.backgroundBitmap3;
+			}
+			canvas.drawBitmap(currentBitmap, 0, 0, paint);
 			int size = Math.min(this.amount, this.leafList.size());			
 			for(int i = 0; i < size; i++){
 				Leaf l = this.leafList.get(i);
@@ -342,21 +339,7 @@ public class LeafFallingService extends WallpaperService {
 				this.leafList.removeAll(leafList);				
 
 			}else if(key.equals("paper_background")){
-				String value = sharedPreferences.getString(key, "0");
-				if(value.equals("0")){
-					this.backgroundBitmap = this.defaultBackgroud;
-				}else{
-					Uri uri = Uri.parse(value);
-					try {
-						InputStream is = LeafFallingService.this.getContentResolver().openInputStream(uri);
-						Bitmap temp = BitmapFactory.decodeStream(is);
-						this.backgroundBitmap = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						this.backgroundBitmap = this.defaultBackgroud;
-					}
-				}
+				this.backgroundFlag = sharedPreferences.getString(key, "0");
 			}
 		}				
 		

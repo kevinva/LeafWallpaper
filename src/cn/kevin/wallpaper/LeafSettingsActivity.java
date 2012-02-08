@@ -32,9 +32,9 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	private MyImagePreference imagePreference1;
 	private MyImagePreference imagePreference2;
 	private MyImagePreference imagePreference3;
-	private MyImagePreference imagePreference4;
+
 	
-	private String prevBgFile = null;
+	//private String prevBgFile = null;
 	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -58,30 +58,29 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.setLeafNumberSummary(pref.getString("leaf_number", "50"));
 		this.setLeafMovingDirectionSummary(pref.getString("leaf_moving_direction", "0"));
 		this.setLeafColorSummary(pref.getString("leaf_color", "0"));
+		this.setBackgroundSummary(pref.getString("paper_background", "0"));
 		
+		/*
 		this.prevBgFile = pref.getString("paper_background", "0");
 		if(this.prevBgFile.equals("0")){
 			this.list4Bg.setSummary("当前背景：默认");
 		}else{
 			this.list4Bg.setSummary("当前背景：" + this.prevBgFile);
-		}		
+		}	
+		*/	
 		
 		this.imagePreference1 = (MyImagePreference)this.findPreference("recommend1");
 		this.imagePreference1.setOnPreferenceClickListener(this);
 		this.imagePreference1.title = this.getResources().getString(R.string.recommend1_title);
-		this.imagePreference1.mImage = R.drawable.ic_launcher;
+		this.imagePreference1.mImage = R.drawable.recommend1;
 		this.imagePreference2 = (MyImagePreference)this.findPreference("recommend2");
 		this.imagePreference2.setOnPreferenceClickListener(this);
 		this.imagePreference2.title = this.getResources().getString(R.string.recommend2_title);
-		this.imagePreference2.mImage = R.drawable.ic_launcher;		
+		this.imagePreference2.mImage = R.drawable.recommend2;		
 		this.imagePreference3 = (MyImagePreference)this.findPreference("recommend3");
 		this.imagePreference3.setOnPreferenceClickListener(this);
 		this.imagePreference3.title = this.getResources().getString(R.string.recommend3_title);
-		this.imagePreference3.mImage = R.drawable.ic_launcher;
-		this.imagePreference4 = (MyImagePreference)this.findPreference("recommend4");
-		this.imagePreference4.setOnPreferenceClickListener(this);
-		this.imagePreference4.title = this.getResources().getString(R.string.recommend4_title);
-		this.imagePreference4.mImage = R.drawable.ic_launcher;
+		this.imagePreference3.mImage = R.drawable.recommend3;
 		
 		
 	}
@@ -115,6 +114,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		}else if(key.equals("paper_background")){
 			String value = this.list4Bg.getValue();
 			
+			/*
 			if(value.equals("1")){
 				Intent intent = new Intent();
 				intent.setType("image/*");
@@ -124,7 +124,11 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 				this.list4Bg.setSummary("当前背景：默认");
 				this.prevBgFile = value;
 			}
+			*/
+			this.setBackgroundSummary(value);
 		}
+		
+		
 	}
 	
 	private void setLeafNumberSummary(String value){		
@@ -174,7 +178,20 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		}
 		this.list4Color.setSummary("当前颜色：" + title);
 	}
+	
+	private void setBackgroundSummary(String value){
+		String title = "";
+		if(value.equals("0")){
+			title = "背景1";
+		}else if(value.equals("1")){
+			title = "背景2";
+		}else if(value.equals("2")){
+			title = "背景3";
+		}
+		this.list4Bg.setSummary("当前颜色：" + title);
+	}
 
+	/*
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -199,6 +216,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		}
 		
 	}
+	*/
 
 
 	public boolean onPreferenceClick(Preference arg0) {
@@ -213,9 +231,6 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 			this.openLink(urlStr);
 		}else if(arg0 == this.imagePreference3){
 			urlStr = this.getString(R.string.recommend3_url);
-			this.openLink(urlStr);
-		}else if(arg0 == this.imagePreference4){
-			urlStr = this.getString(R.string.recommend4_url);
 			this.openLink(urlStr);
 		}
 		
