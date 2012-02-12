@@ -1,12 +1,9 @@
 package cn.kevin.wallpaper;
 
 
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -14,12 +11,12 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.view.Gravity;
-import android.widget.FrameLayout;
-
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import com.admogo.AdMogoLayout;
 import com.admogo.AdMogoManager;
 import com.airpush.android.Airpush;
+
 
 
 public class LeafSettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener, OnPreferenceClickListener{
@@ -42,13 +39,11 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		//Airpush
 		new Airpush(this.getApplicationContext(), "31944", "1313749488383825972", false, true, true);
 		
-		//AdMogo
-		this.addAdMogoLayout();
-		
 		this.addPreferencesFromResource(R.xml.wallpaper_setting);
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		pref.registerOnSharedPreferenceChangeListener(this);
+		this.setContentView(R.layout.preference_main);
 		
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		pref.registerOnSharedPreferenceChangeListener(this);		
 		this.list4Amount = (ListPreference)this.findPreference("leaf_number");
 		this.list4Speed = (ListPreference)this.findPreference("leaf_falling_speed");
 		this.list4MovingDirection = (ListPreference)this.findPreference("leaf_moving_direction");
@@ -82,6 +77,8 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.imagePreference3.title = this.getResources().getString(R.string.recommend3_title);
 		this.imagePreference3.mImage = R.drawable.recommend3;
 		
+		//AdMogo
+		this.addAdMogoLayout();
 		
 	}
 
@@ -242,17 +239,12 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		startActivity(intent);
 	}
 	
+	//加载上部AdMogo广告
 	private void addAdMogoLayout(){
-		AdMogoLayout adMogoLayoutCode = new AdMogoLayout(this, this.getString(R.string.AdMogo_USER_ID));
-		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-				FrameLayout.LayoutParams.FILL_PARENT, 
-				FrameLayout.LayoutParams.WRAP_CONTENT,
-				1
-		);
-		
-		params.bottomMargin = 0;
-		params.gravity = Gravity.BOTTOM;
-		this.addContentView(adMogoLayoutCode, params);
-		
+		LinearLayout mainLayout = (LinearLayout)findViewById(R.id.main_layout);
+		System.out.println("MainLayout: " + mainLayout);
+    	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    	AdMogoLayout adMogoLayoutCode = new AdMogoLayout(this, this.getResources().getString(R.string.AdMogo_USER_ID2));
+    	mainLayout.addView(adMogoLayoutCode, 0, params);
 	}
 }

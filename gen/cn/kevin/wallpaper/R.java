@@ -36,11 +36,14 @@ public final class R {
         public static final int recommend3=0x7f02000a;
     }
     public static final class id {
+        public static final int admogo_layout=0x7f070003;
+        public static final int main_layout=0x7f070002;
         public static final int recommend_image=0x7f070000;
         public static final int recommend_text=0x7f070001;
     }
     public static final class layout {
         public static final int image_preference=0x7f030000;
+        public static final int preference_main=0x7f030001;
     }
     public static final class string {
         public static final int AdMogo_USER_ID=0x7f060029;
