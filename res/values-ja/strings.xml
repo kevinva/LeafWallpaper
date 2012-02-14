@@ -47,4 +47,8 @@
 	<string name="recommend2_title">お勧めします2</string>
 	<string name="recommend3_title">お勧めします3</string>
 
+	<string name="paper_share_to">シェア</string>
+	<string name="share_title">共有する</string>
+	<string name="share_text_prefix">あなたのための興味深いアプリケーションを共有する:</string>
+	<string name="share_text_content">http://android.1717app.com/2.html</string>
 </resources>

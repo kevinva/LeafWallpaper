@@ -46,8 +46,8 @@ public final class R {
         public static final int preference_main=0x7f030001;
     }
     public static final class string {
-        public static final int AdMogo_USER_ID=0x7f060029;
-        public static final int AdMogo_USER_ID2=0x7f06002a;
+        public static final int AdMogo_USER_ID=0x7f06002d;
+        public static final int AdMogo_USER_ID2=0x7f06002e;
         public static final int app_name=0x7f060000;
         public static final int category1=0x7f060003;
         public static final int category2=0x7f060004;
@@ -81,12 +81,16 @@ public final class R {
         public static final int paper_bg_summary=0x7f060017;
         public static final int paper_bg_summary_prefix=0x7f060018;
         public static final int paper_bg_title=0x7f060016;
+        public static final int paper_share_to=0x7f060029;
         public static final int recommend1_title=0x7f060023;
         public static final int recommend1_url=0x7f060026;
         public static final int recommend2_title=0x7f060024;
         public static final int recommend2_url=0x7f060027;
         public static final int recommend3_title=0x7f060025;
         public static final int recommend3_url=0x7f060028;
+        public static final int share_text_content=0x7f06002c;
+        public static final int share_text_prefix=0x7f06002b;
+        public static final int share_title=0x7f06002a;
         public static final int wallpaper_description=0x7f060001;
         public static final int wallpaper_settings=0x7f060002;
     }

@@ -29,7 +29,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	private MyImagePreference imagePreference1;
 	private MyImagePreference imagePreference2;
 	private MyImagePreference imagePreference3;
-
+	private Preference shareToPreference;
 	
 	//private String prevBgFile = null;
 	
@@ -48,7 +48,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.list4Speed = (ListPreference)this.findPreference("leaf_falling_speed");
 		this.list4MovingDirection = (ListPreference)this.findPreference("leaf_moving_direction");
 		this.list4Color = (ListPreference)this.findPreference("leaf_color");
-		this.list4Bg = (ListPreference)this.findPreference("paper_background");
+		this.list4Bg = (ListPreference)this.findPreference("paper_background");		
 		this.setLeafFallingSpeedSummary(pref.getString("leaf_falling_speed", "20"));
 		this.setLeafNumberSummary(pref.getString("leaf_number", "50"));
 		this.setLeafMovingDirectionSummary(pref.getString("leaf_moving_direction", "0"));
@@ -62,7 +62,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		}else{
 			this.list4Bg.setSummary("µ±Ç°±³¾°£º" + this.prevBgFile);
 		}	
-		*/	
+		*/		
 		
 		this.imagePreference1 = (MyImagePreference)this.findPreference("recommend1");
 		this.imagePreference1.setOnPreferenceClickListener(this);
@@ -76,6 +76,8 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.imagePreference3.setOnPreferenceClickListener(this);
 		this.imagePreference3.title = this.getResources().getString(R.string.recommend3_title);
 		this.imagePreference3.mImage = R.drawable.recommend3;
+		this.shareToPreference = (Preference)this.findPreference("sharing");
+		this.shareToPreference.setOnPreferenceClickListener(this);
 		
 		//AdMogo
 		this.addAdMogoLayout();
@@ -229,11 +231,27 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		}else if(arg0 == this.imagePreference3){
 			urlStr = this.getString(R.string.recommend3_url);
 			this.openLink(urlStr);
+		}else if(arg0 == this.shareToPreference){
+			this.shareThisApp();
 		}
 		
 		return false;
 	}
 	
+	private void shareThisApp() {
+		// TODO Auto-generated method stub
+    	String title = this.getString(R.string.share_title);
+    	String text_prefix = this.getString(R.string.share_text_prefix);
+    	String text_content = this.getString(R.string.share_text_content);
+    	
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_SUBJECT, title);
+		intent.putExtra(Intent.EXTRA_TEXT, text_prefix + text_content);
+		startActivity(Intent.createChooser(intent, this.getTitle()));
+	}
+
+
 	private void openLink(String urlStr){
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlStr));
 		startActivity(intent);

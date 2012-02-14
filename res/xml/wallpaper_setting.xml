@@ -62,6 +62,11 @@
         <cn.kevin.wallpaper.MyImagePreference 
             android:key="recommend3"
             android:layout="@layout/image_preference"
-            />            
+            />
+        <Preference 
+            android:key="sharing"
+            android:title="@string/paper_share_to"
+            
+            />          
 	</PreferenceCategory>
 </PreferenceScreen>

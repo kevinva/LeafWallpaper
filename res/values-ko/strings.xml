@@ -47,4 +47,9 @@
 	<string name="recommend2_title">추천2</string>
 	<string name="recommend3_title">추천3</string>
 
+	<string name="paper_share_to">로 공유</string>
+	<string name="share_title">주</string>
+	<string name="share_text_prefix">당신을 위해 재미있는 응용 프로그램을 공유:</string>
+	<string name="share_text_content">http://android.1717app.com/2.html</string>
+
 </resources>

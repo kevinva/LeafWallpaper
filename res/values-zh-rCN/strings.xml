@@ -46,5 +46,10 @@
 	<string name="recommend1_title">推荐1</string>
 	<string name="recommend2_title">推荐2</string>
 	<string name="recommend3_title">推荐3</string>
+	
+	<string name="paper_share_to">分享到</string>
+	<string name="share_title">分享</string>
+	<string name="share_text_prefix">分享一个有趣的应用给你:</string>
+	<string name="share_text_content">http://android.1717app.com/2.html</string>
 
 </resources>
