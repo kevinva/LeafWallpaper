@@ -34,6 +34,7 @@ public final class R {
         public static final int recommend1=0x7f020008;
         public static final int recommend2=0x7f020009;
         public static final int recommend3=0x7f02000a;
+        public static final int share=0x7f02000b;
     }
     public static final class id {
         public static final int admogo_layout=0x7f070003;

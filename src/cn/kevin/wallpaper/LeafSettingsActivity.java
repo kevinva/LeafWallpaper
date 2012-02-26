@@ -29,7 +29,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	private MyImagePreference imagePreference1;
 	private MyImagePreference imagePreference2;
 	private MyImagePreference imagePreference3;
-	private Preference shareToPreference;
+	private MyImagePreference shareToPreference;
 	
 	//private String prevBgFile = null;
 	
@@ -55,6 +55,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.setLeafColorSummary(pref.getString("leaf_color", "0"));
 		this.setBackgroundSummary(pref.getString("paper_background", "0"));
 		
+		
 		/*
 		this.prevBgFile = pref.getString("paper_background", "0");
 		if(this.prevBgFile.equals("0")){
@@ -76,8 +77,10 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.imagePreference3.setOnPreferenceClickListener(this);
 		this.imagePreference3.title = this.getResources().getString(R.string.recommend3_title);
 		this.imagePreference3.mImage = R.drawable.recommend3;
-		this.shareToPreference = (Preference)this.findPreference("sharing");
+		this.shareToPreference = (MyImagePreference)this.findPreference("sharing");
 		this.shareToPreference.setOnPreferenceClickListener(this);
+		this.shareToPreference.title = this.getResources().getString(R.string.paper_share_to);
+		this.shareToPreference.mImage = R.drawable.share;
 		
 		//AdMogo
 		this.addAdMogoLayout();

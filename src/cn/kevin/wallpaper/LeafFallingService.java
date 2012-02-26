@@ -53,15 +53,17 @@ public class LeafFallingService extends WallpaperService {
 		private int count;
 		private int heightOfCanvas;
 		private int widthOfCanvas;
-		private Random rand;
-		private GestureDetector detector;
 		private float touchX;
 		private float touchY;
 		private int interval; //涉及叶子下落速度
 		private int amount; //涉及叶子数量
 		private boolean fallingDown; //叶子运动方向
+		private float bgX = 0;  //绘制背景的x坐标
+		//private float bgY = 0;	//绘制背景的y坐标
 		private String colorFlag;
-		private String backgroundFlag;
+		private String backgroundFlag;		
+		private Random rand;
+		private GestureDetector detector;
 		
 		private static final int DRAW_MSG = 0;
 		private static final int MAX_SIZE = 101;
@@ -141,20 +143,20 @@ public class LeafFallingService extends WallpaperService {
 			// TODO Auto-generated method stub
 			super.onSurfaceCreated(holder);
 			System.out.println("Engine: onSurfaceCreate");
+			
 			Canvas canvas = holder.lockCanvas();
 			this.heightOfCanvas = canvas.getHeight();
 			this.widthOfCanvas = canvas.getWidth();
 			System.out.println("Width = " + widthOfCanvas + ", Height = " + heightOfCanvas);
-			
 			Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
-			this.backgroundBitmap1 = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);
+			this.backgroundBitmap1 = Bitmap.createScaledBitmap(temp, temp.getWidth(), heightOfCanvas, true);
 			temp = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
-			this.backgroundBitmap2 = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);
+			this.backgroundBitmap2 = Bitmap.createScaledBitmap(temp, temp.getWidth(), heightOfCanvas, true);
 			temp = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
-			this.backgroundBitmap3 = Bitmap.createScaledBitmap(temp, widthOfCanvas, heightOfCanvas, true);	
+			this.backgroundBitmap3 = Bitmap.createScaledBitmap(temp, temp.getWidth(), heightOfCanvas, true);	
 			
-			holder.unlockCanvasAndPost(canvas);
-			
+			holder.unlockCanvasAndPost(canvas);			
+
 			this.mHandler.sendEmptyMessage(DRAW_MSG);
 		}		
 		
@@ -174,10 +176,13 @@ public class LeafFallingService extends WallpaperService {
 			// TODO Auto-generated method stub
 			super.onOffsetsChanged(xOffset, yOffset, xOffsetStep, yOffsetStep,
 					xPixelOffset, yPixelOffset);
-			/*
-			System.out.println("xOffset: " + xOffset + ", yOffset: " + yOffset + ", xOffsetStep: " + xOffsetStep + ", yOffsetStep: " + yOffsetStep
-					+ ", xPixelOffset: " + xPixelOffset + ", yPixelOffset: " + yPixelOffset);
-			*/
+			
+			//System.out.println("xOffset: " + xOffset + ", yOffset: " + yOffset);
+			//System.out.println("xOffsetStep: " + xOffsetStep + ", yOffsetStep: " + yOffsetStep);
+			System.out.println("xPixelOffset: " + xPixelOffset + ", yPixelOffset: " + yPixelOffset);			
+
+			this.bgX = xPixelOffset;			
+			
 		}
 
 
@@ -221,15 +226,7 @@ public class LeafFallingService extends WallpaperService {
 			
 			SurfaceHolder holder = this.getSurfaceHolder();
 			Canvas canvas = holder.lockCanvas();	
-			Bitmap currentBitmap = null;
-			if(this.backgroundFlag.equals("0")){
-				currentBitmap = this.backgroundBitmap1;
-			}else if(this.backgroundFlag.equals("1")){
-				currentBitmap = this.backgroundBitmap2;
-			}else if(this.backgroundFlag.equals("2")){
-				currentBitmap = this.backgroundBitmap3;
-			}
-			canvas.drawBitmap(currentBitmap, 0, 0, paint);
+			this.drawBackground(canvas);
 			int size = Math.min(this.amount, this.leafList.size());			
 			for(int i = 0; i < size; i++){
 				Leaf l = this.leafList.get(i);
@@ -246,6 +243,19 @@ public class LeafFallingService extends WallpaperService {
 			//System.out.println("interval = " + interval + ", amount = " + amount);
 		}		
 
+		private void drawBackground(Canvas c){
+			Bitmap currentBitmap = null;
+			if(this.backgroundFlag.equals("0")){
+				currentBitmap = this.backgroundBitmap1;
+			}else if(this.backgroundFlag.equals("1")){
+				currentBitmap = this.backgroundBitmap2;
+			}else if(this.backgroundFlag.equals("2")){
+				currentBitmap = this.backgroundBitmap3;
+			}
+
+			c.drawBitmap(currentBitmap, this.bgX, 0, paint);
+
+		}
 
 		@Override
 		public void onTouchEvent(MotionEvent event) {
@@ -257,7 +267,7 @@ public class LeafFallingService extends WallpaperService {
 
 		public boolean onDown(MotionEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("onDown");
+			//System.out.println("onDown");
 			
 			touchX = e.getX();
 			touchY = e.getY();
@@ -308,7 +318,8 @@ public class LeafFallingService extends WallpaperService {
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
 			// TODO Auto-generated method stub
-			System.out.println("onFling");
+			//System.out.println("onFling");
+			
 			
 			return false;
 		}

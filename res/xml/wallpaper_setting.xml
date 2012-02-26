@@ -45,6 +45,7 @@
         	android:entries="@array/paper_bg_list"
         	android:entryValues="@array/paper_bg_value"
         	android:defaultValue="0"
+
         	/>        	
     </PreferenceCategory>
     
@@ -62,10 +63,11 @@
         <cn.kevin.wallpaper.MyImagePreference 
             android:key="recommend3"
             android:layout="@layout/image_preference"
+
             />
-        <Preference 
+        <cn.kevin.wallpaper.MyImagePreference 
             android:key="sharing"
-            android:title="@string/paper_share_to"
+            android:layout="@layout/image_preference"
             
             />          
 	</PreferenceCategory>
