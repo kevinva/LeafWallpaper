@@ -46,9 +46,10 @@ public class LeafFallingService extends WallpaperService {
 		private Bitmap bitmap1;
 		private Bitmap bitmap2;
 		private Bitmap bitmap3;
-		private Bitmap backgroundBitmap1;
-		private Bitmap backgroundBitmap2;
-		private Bitmap backgroundBitmap3;
+		//private Bitmap backgroundBitmap1;
+		//private Bitmap backgroundBitmap2;
+		//private Bitmap backgroundBitmap3;
+		private Bitmap currentBackgroundBitmap;
 		private Paint paint;
 		private int count;
 		private int heightOfCanvas;
@@ -148,12 +149,19 @@ public class LeafFallingService extends WallpaperService {
 			this.heightOfCanvas = canvas.getHeight();
 			this.widthOfCanvas = canvas.getWidth();
 			System.out.println("Width = " + widthOfCanvas + ", Height = " + heightOfCanvas);
-			Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
-			this.backgroundBitmap1 = Bitmap.createScaledBitmap(temp, temp.getWidth(), heightOfCanvas, true);
-			temp = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
-			this.backgroundBitmap2 = Bitmap.createScaledBitmap(temp, temp.getWidth(), heightOfCanvas, true);
-			temp = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
-			this.backgroundBitmap3 = Bitmap.createScaledBitmap(temp, temp.getWidth(), heightOfCanvas, true);	
+			
+			/*
+			BitmapFactory.Options bitmapOpt = new BitmapFactory.Options();
+			bitmapOpt.inSampleSize = 2;			
+			Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.background1, bitmapOpt);
+			this.backgroundBitmap1 = Bitmap.createScaledBitmap(temp, temp.getWidth() * 2, heightOfCanvas, true);				
+			temp = BitmapFactory.decodeResource(getResources(), R.drawable.background2, bitmapOpt);
+			this.backgroundBitmap2 = Bitmap.createScaledBitmap(temp, temp.getWidth() * 2, heightOfCanvas, true);			
+			temp = BitmapFactory.decodeResource(getResources(), R.drawable.background3, bitmapOpt);
+			this.backgroundBitmap3 = Bitmap.createScaledBitmap(temp, temp.getWidth() * 2, heightOfCanvas, true);				
+			*/
+			
+			this.updateBackgroundForIndex(this.backgroundFlag);
 			
 			holder.unlockCanvasAndPost(canvas);			
 
@@ -166,6 +174,24 @@ public class LeafFallingService extends WallpaperService {
 			// TODO Auto-generated method stub		
 			System.out.println("Engine: onSurfaceDestroyed");
 			this.mHandler.removeMessages(DRAW_MSG);
+			
+			if(this.currentBackgroundBitmap != null){
+				this.currentBackgroundBitmap.recycle();
+				this.currentBackgroundBitmap = null;
+			}
+			if(this.bitmap1 != null){
+				this.bitmap1.recycle();
+				this.bitmap1 = null;
+			}
+			if(this.bitmap2 != null){
+				this.bitmap2.recycle();
+				this.bitmap2 = null;
+			}
+			if(this.bitmap3 != null){
+				this.bitmap3.recycle();
+				this.bitmap3 = null;
+			}
+			
 			super.onSurfaceDestroyed(holder);
 		}		
 
@@ -244,16 +270,17 @@ public class LeafFallingService extends WallpaperService {
 		}		
 
 		private void drawBackground(Canvas c){
+			/*
 			Bitmap currentBitmap = null;
 			if(this.backgroundFlag.equals("0")){
-				currentBitmap = this.backgroundBitmap1;
+				currentBitmap = this.backgroundBitmap1;				
 			}else if(this.backgroundFlag.equals("1")){
 				currentBitmap = this.backgroundBitmap2;
 			}else if(this.backgroundFlag.equals("2")){
 				currentBitmap = this.backgroundBitmap3;
 			}
-
-			c.drawBitmap(currentBitmap, this.bgX, 0, paint);
+	*/
+			c.drawBitmap(this.currentBackgroundBitmap, this.bgX, 0, paint);
 
 		}
 
@@ -350,10 +377,82 @@ public class LeafFallingService extends WallpaperService {
 				this.leafList.removeAll(leafList);				
 
 			}else if(key.equals("paper_background")){
-				this.backgroundFlag = sharedPreferences.getString(key, "0");
+				this.backgroundFlag = sharedPreferences.getString(key, "0");				
+				updateBackgroundForIndex(backgroundFlag);
+				
 			}
-		}				
+		}	
+		
+		
+		private void updateBackgroundForIndex(String index){
+			
+			if(this.currentBackgroundBitmap != null && !this.currentBackgroundBitmap.isRecycled()){
+				System.out.println("Bitmap will be recycled!");
+				
+				this.currentBackgroundBitmap.recycle();				
+				this.currentBackgroundBitmap = null;
+			}					
+			
+			//BitmapFactory.Options bitmapOpt = new BitmapFactory.Options();
+			//bitmapOpt.inTempStorage = new byte[1024 * 1024 * 3];
+			Bitmap temp = null;
+			if(index.equals("1")){
+				temp = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
+				//temp = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
+			}else if(index.equals("2")){
+				temp = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+				//temp = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+			}else{
+				temp = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+				//temp = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+			}
+			
+			this.currentBackgroundBitmap = Bitmap.createScaledBitmap(temp, temp.getWidth(), heightOfCanvas, true);
+						
+			
+		}
+		
+		/*
+		public int computeSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels) { 
+			int initialSize = computeInitialSampleSize(options, minSideLength,maxNumOfPixels); 
+			int roundedSize; 
+			if (initialSize <= 8 ) { 
+				roundedSize = 1;
+				while (roundedSize < initialSize) { 
+					roundedSize <<= 1; 
+				} 
+			}else{ 
+				roundedSize = (initialSize + 7) / 8 * 8; 
+			}
+		return roundedSize; 
+		
+		} 
+
+		private int computeInitialSampleSize(BitmapFactory.Options options,int minSideLength, int maxNumOfPixels) { 
+		
+			double w = options.outWidth; 
+			double h = options.outHeight; 
+
+			int lowerBound = (maxNumOfPixels == -1) ? 1 : (int) Math.ceil(Math.sqrt(w * h / maxNumOfPixels)); 
+			int upperBound = (minSideLength == -1) ? 128 : (int) Math.min(Math.floor(w / minSideLength), Math.floor(h / minSideLength)); 
+
+			if (upperBound < lowerBound) { 
+				// return the larger one when there is no overlapping zone. 
+				return lowerBound; 
+			} 
+
+			if ((maxNumOfPixels == -1) && (minSideLength == -1)){ 
+				return 1; 
+			}else if(minSideLength == -1) { 
+				return lowerBound; 
+			} else { 
+				return upperBound;
+			} 
+		}
+		*/
 		
 	}
+	
+	
 
 }
