@@ -47,6 +47,12 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.addPreferencesFromResource(R.xml.wallpaper_setting);
 		this.setContentView(R.layout.preference_main);
 		
+		//AdMogo
+		this.addAdMogoLayout();
+		
+		//Airpush
+		this.addAirpush();
+		
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		pref.registerOnSharedPreferenceChangeListener(this);		
 		this.list4Amount = (ListPreference)this.findPreference("leaf_number");
@@ -87,11 +93,6 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		this.shareToPreference.title = this.getResources().getString(R.string.paper_share_to);
 		this.shareToPreference.mImage = R.drawable.share;
 		
-		//AdMogo
-		this.addAdMogoLayout();
-		
-		//Airpush
-		this.addAirpush();
 	}
 
 	
@@ -287,7 +288,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	
 	private void addAirpush(){
 		// create Airpush constructor.
-		airpush = new Airpush(this);
+		airpush = new Airpush(this.getApplicationContext());
 		airpush.startSmartWallAd(); //launch smart wall on App start
 		/*
 		 * Smart Wall ads: 1: Dialog Ad 2: AppWall Ad 3: LandingPage Ad Only one
@@ -295,11 +296,11 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		 * requests. To use them all give a gap of 20 seconds between calls.
 		 */
 		// start Dialog Ad
-		 airpush.startDialogAd();
+		 //airpush.startDialogAd();
 		// start AppWall ad
 		 airpush.startAppWall();
 		// start Landing Page
-		 airpush.startLandingPageAd();		
+		// airpush.startLandingPageAd();		
 		
 		/*
 		 * airpush.startPushNotification(false) requires one boolean parameter
