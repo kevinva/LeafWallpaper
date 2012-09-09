@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.kevin.wallpaper"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="30"
+    android:versionName="3.0" >
 
     <uses-sdk android:minSdkVersion="7" />
     <uses-feature android:name="android.software.live_wallpaper"/>
 
     <application
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name" >        
         <service 
             android:label="@string/app_name"
@@ -27,42 +27,71 @@
             android:exported="true"
             />
         
-        <!-- 多盟 integration -->
-		<activity android:name="cn.domob.android.ads.DomobActivity"
-			android:theme="@android:style/Theme.Translucent" />
+        <!-- Mogo start-->
+        <activity
+            android:name="com.adsmogo.adview.AdsMogoWebView"
+            android:label="@string/app_name" >
+        </activity>
+        <!-- 注册Service，应用下载所需 -->
+        <service
+            android:name="com.adsmogo.controller.service.UpdateService"
+            android:exported="true"
+            android:process=":remote" />
+        <!-- 注册Service，应用被安装所用 -->
+        <service
+            android:name="com.adsmogo.controller.service.CountService"
+            android:exported="true"
+            android:process=":remote" />
+        <!-- Mogo end -->
         
-        <!-- AdMob integration -->
-        <activity 
-        	android:name="com.google.ads.AdActivity"
-        	android:configChanges="keyboard|keyboardHidden|orientation"
-        	/> 
+        <!-- 多盟 integration start -->
+        <activity
+            android:name="cn.domob.android.ads.DomobActivity"
+            android:theme="@android:style/Theme.Translucent" />
+		<!-- 多盟 integration end -->
+        
+        <!-- AdMob integration start-->
+          <activity
+            android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout" />
+        <!-- AdMob integration end-->
 		
-		<!-- 安沃 integration-->
-		<activity android:name="com.adwo.adsdk.AdwoAdBrowserActivity"
-				  android:label="@string/app_name" />		
-		<!-- AdMOGO -->
-        <meta-data android:value="@string/AdMogo_USER_ID"
-				   android:name="ADMOGO_KEY"
-				   />
+		<!-- 安沃 integration start-->
+        <activity
+            android:name="com.adwo.adsdk.AdwoAdBrowserActivity"
+            android:label="@string/app_name" />
+        <!-- 安沃全屏广告 -->
+        <activity
+            android:name="com.adwo.adsdk.AdwoSplashAdActivity"
+            android:label="@string/app_name" />
+		<!-- 安沃 integration end-->
+				       
+        <!-- Airpush start-->
+		<!--Start required declaration for all ads-->        
+        <meta-data android:name="com.airpush.android.APPID" android:value="67292" />
+        <meta-data android:name="com.airpush.android.APIKEY" android:value="apikey*1345103177648703821" />
         
-        <!-- Airpush Code -->
-		<activity android:name="com.airpush.android.PushAds"
-				  android:configChanges="orientation|keyboardHidden" />
-		<receiver android:name="com.airpush.android.UserDetailsReceiver" />
-		<receiver android:name="com.airpush.android.MessageReceiver" />
-		<receiver android:name="com.airpush.android.DeliveryReceiver" />
-		<receiver android:name=".BootReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED" />
-				<category android:name="android.intent.category.HOME" />
-			</intent-filter>
-		</receiver>
-		<service android:name="com.airpush.android.PushService">
-			<intent-filter>
-				<action android:name="com.airpush.android.PushServiceStart31944" />
-			</intent-filter>
-		</service>
-		<!-- End Airpush Code -->
+        <!-- This activity is required for all ads. -->
+        <activity android:exported="false" android:name="com.airpush.android.OptinActivity" 
+            android:configChanges="orientation|keyboardHidden" android:theme="@android:style/Theme.Translucent" />
+        <!-- End of the required declaration  -->
+        <!-- Start declaration for push notification ads. -->
+	        <service  android:name="com.airpush.android.PushService"   android:exported="false" />
+	        <receiver android:name="com.airpush.android.BootReceiver" android:exported="false" >
+	            <intent-filter>
+	                <action android:name="android.intent.action.BOOT_COMPLETED" />
+	                <category android:name="android.intent.category.HOME" />
+	            </intent-filter>
+	        </receiver>
+		<!-- End declaration for push notification ads. -->
+        <!-- Add this activity for Smart wall ads.. -->
+       
+        <activity
+            android:name="com.airpush.android.SmartWallActivity" android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask" />		       
+        <!-- End of Airpush Manifest declaration-->	
+		<!-- Airpush end  -->
+
             
     </application>
     

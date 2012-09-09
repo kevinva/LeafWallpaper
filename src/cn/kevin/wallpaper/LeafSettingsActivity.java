@@ -11,11 +11,16 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import com.admogo.AdMogoLayout;
-import com.admogo.AdMogoManager;
-import com.airpush.android.Airpush;
+
+
+
+import com.BIdNdKzg.AGTSwiNR38382.Airpush;
+import com.adsmogo.adview.AdsMogoLayout;
 
 
 
@@ -31,13 +36,13 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	private MyImagePreference imagePreference3;
 	private MyImagePreference shareToPreference;
 	
+	private Airpush airpush;
+	private AdsMogoLayout adsMogoLayoutCode;
+	
 	//private String prevBgFile = null;
 	
 	protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-		
-		//Airpush
-		new Airpush(this.getApplicationContext(), "31944", "1313749488383825972", false, true, true);
+		super.onCreate(savedInstanceState);		
 		
 		this.addPreferencesFromResource(R.xml.wallpaper_setting);
 		this.setContentView(R.layout.preference_main);
@@ -85,12 +90,17 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		//AdMogo
 		this.addAdMogoLayout();
 		
+		//Airpush
+		this.addAirpush();
 	}
 
 	
 	protected void onDestroy(){
 		PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
-		AdMogoManager.clear();
+		
+		if (adsMogoLayoutCode != null) {
+			adsMogoLayoutCode.clearThread();
+		}
 		
 		super.onDestroy();		
 	}	
@@ -129,8 +139,15 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 			*/
 			this.setBackgroundSummary(value);
 		}
-		
-		
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {			
+			//use smart wall on app exit. 
+			airpush.startSmartWallAd();
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
 	private void setLeafNumberSummary(String value){		
@@ -262,10 +279,35 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	
 	//加载上部AdMogo广告
 	private void addAdMogoLayout(){
-		LinearLayout mainLayout = (LinearLayout)findViewById(R.id.main_layout);
-		System.out.println("MainLayout: " + mainLayout);
+		adsMogoLayoutCode = new AdsMogoLayout(this,	this.getString(R.string.AdMogo_USER_ID2), false);		
+		LinearLayout mainLayout = (LinearLayout)findViewById(R.id.main_layout);		
     	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    	AdMogoLayout adMogoLayoutCode = new AdMogoLayout(this, this.getResources().getString(R.string.AdMogo_USER_ID2));
-    	mainLayout.addView(adMogoLayoutCode, 0, params);
+    	mainLayout.addView(adsMogoLayoutCode, 0, params);
+	}
+	
+	private void addAirpush(){
+		// create Airpush constructor.
+		airpush = new Airpush(this);
+		airpush.startSmartWallAd(); //launch smart wall on App start
+		/*
+		 * Smart Wall ads: 1: Dialog Ad 2: AppWall Ad 3: LandingPage Ad Only one
+		 * of the ad will get served at a time. SDK will ignore the other
+		 * requests. To use them all give a gap of 20 seconds between calls.
+		 */
+		// start Dialog Ad
+		 airpush.startDialogAd();
+		// start AppWall ad
+		 airpush.startAppWall();
+		// start Landing Page
+		 airpush.startLandingPageAd();		
+		
+		/*
+		 * airpush.startPushNotification(false) requires one boolean parameter
+		 * which will used for demo mode if it's true then App will receive demo
+		 * ads. Please changed it to false before publishing.
+		 */
+		airpush.startPushNotification(false);
+		// start icon ad.
+		airpush.startIconAd();	
 	}
 }
