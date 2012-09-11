@@ -11,16 +11,12 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-
-
-import com.BIdNdKzg.AGTSwiNR38382.Airpush;
 import com.adsmogo.adview.AdsMogoLayout;
+import com.airpush.android.Airpush;
 
 
 
@@ -288,7 +284,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	
 	private void addAirpush(){
 		// create Airpush constructor.
-		airpush = new Airpush(this.getApplicationContext());
+		airpush = new Airpush(this);
 		airpush.startSmartWallAd(); //launch smart wall on App start
 		/*
 		 * Smart Wall ads: 1: Dialog Ad 2: AppWall Ad 3: LandingPage Ad Only one
@@ -296,7 +292,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		 * requests. To use them all give a gap of 20 seconds between calls.
 		 */
 		// start Dialog Ad
-		 //airpush.startDialogAd();
+		// airpush.startDialogAd();
 		// start AppWall ad
 		 airpush.startAppWall();
 		// start Landing Page
@@ -309,6 +305,6 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 		 */
 		airpush.startPushNotification(false);
 		// start icon ad.
-		airpush.startIconAd();	
+		airpush.startIconAd();		
 	}
 }
