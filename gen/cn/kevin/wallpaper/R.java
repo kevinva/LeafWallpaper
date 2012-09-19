@@ -38,7 +38,7 @@ public final class R {
         public static final int share=0x7f02000c;
     }
     public static final class id {
-        public static final int adsMogoView=0x7f070005;
+        public static final int admogo_layout=0x7f070005;
         public static final int imageView=0x7f070000;
         public static final int main_layout=0x7f070004;
         public static final int recommend_image=0x7f070002;

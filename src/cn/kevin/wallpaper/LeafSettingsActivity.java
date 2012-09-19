@@ -15,7 +15,8 @@ import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.adsmogo.adview.AdsMogoLayout;
+import com.admogo.AdMogoLayout;
+import com.admogo.AdMogoManager;
 import com.airpush.android.Airpush;
 
 
@@ -33,7 +34,7 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	private MyImagePreference shareToPreference;
 	
 	private Airpush airpush;
-	private AdsMogoLayout adsMogoLayoutCode;
+	//private AdsMogoLayout adsMogoLayoutCode;
 	
 	//private String prevBgFile = null;
 	
@@ -94,10 +95,12 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	
 	protected void onDestroy(){
 		PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
-		
+		/*
 		if (adsMogoLayoutCode != null) {
 			adsMogoLayoutCode.clearThread();
 		}
+		*/
+		AdMogoManager.clear();
 		
 		super.onDestroy();		
 	}	
@@ -276,10 +279,18 @@ public class LeafSettingsActivity extends PreferenceActivity implements OnShared
 	
 	//加载上部AdMogo广告
 	private void addAdMogoLayout(){
+		/*
 		adsMogoLayoutCode = new AdsMogoLayout(this,	this.getString(R.string.AdMogo_USER_ID2), false);		
 		LinearLayout mainLayout = (LinearLayout)findViewById(R.id.main_layout);		
     	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     	mainLayout.addView(adsMogoLayoutCode, 0, params);
+    	*/
+		
+		LinearLayout mainLayout = (LinearLayout)findViewById(R.id.main_layout);
+		System.out.println("MainLayout: " + mainLayout);
+    	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    	AdMogoLayout adMogoLayoutCode = new AdMogoLayout(this, this.getResources().getString(R.string.AdMogo_USER_ID2));
+    	mainLayout.addView(adMogoLayoutCode, 0, params);
 	}
 	
 	private void addAirpush(){
