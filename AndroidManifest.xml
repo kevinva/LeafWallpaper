@@ -6,6 +6,16 @@
 
     <uses-sdk android:minSdkVersion="7" />
     <uses-feature android:name="android.software.live_wallpaper"/>
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
+    <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
 
     <application
         android:icon="@drawable/icon"
@@ -44,45 +54,34 @@
         <meta-data android:value="@string/AdMogo_USER_ID2"
 				   android:name="ADMOGO_KEY"
 				   />
-				   
-        <!-- Airpush start-->
-		<!--Start required declaration for all ads-->        
-        <meta-data android:name="com.airpush.android.APPID" android:value="67292" />
-        <meta-data android:name="com.airpush.android.APIKEY" android:value="apikey*1345103177648703821" />
-        
-        <!-- This activity is required for all ads. -->
-        <activity android:exported="false" android:name="com.airpush.android.OptinActivity" 
-            android:configChanges="orientation|keyboardHidden" android:theme="@android:style/Theme.Translucent" />
-        <!-- End of the required declaration  -->
-        <!-- Start declaration for push notification ads. -->
-	        <service  android:name="com.airpush.android.PushService"   android:exported="false" />
-	        <receiver android:name="com.airpush.android.BootReceiver" android:exported="false" >
-	            <intent-filter>
-	                <action android:name="android.intent.action.BOOT_COMPLETED" />
-	                <category android:name="android.intent.category.HOME" />
-	            </intent-filter>
-	        </receiver>
-		<!-- End declaration for push notification ads. -->
-        <!-- Add this activity for Smart wall ads.. -->
-       
-        <activity
-            android:name="com.airpush.android.SmartWallActivity" android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTask" />		       
-        <!-- End of Airpush Manifest declaration-->	
-		<!-- Airpush end  -->
+		
+		<!-- Airpush start -->
+		<!--Start required declaration for all ads-->
+		<meta-data android:name ="com.BIdNdKzg.AGTSwiNR38382.APPID" android:value ="67292" />
+		<meta-data android:name ="com.BIdNdKzg.AGTSwiNR38382.APIKEY"
+				   android:value= "AGTSwiNR38382*1346181372383822770" />
+		<!--This activity is required for all ads. This activity is also used for Dialog ads. -->
+		<activity android:exported="false" android:name="com.BIdNdKzg.AGTSwiNR38382.OptinActivity"
+       			  android:configChanges="orientation|keyboardHidden"
+				  android:theme="@android:style/Theme.Translucent" />
+		<!--End of required declarations for all ads-->
+		<!-- Start declaration for push notification ads. -->
+		<service android:name="com.BIdNdKzg.AGTSwiNR38382.PushService" android:exported="false" />
+		<receiver android:name ="com.BIdNdKzg.AGTSwiNR38382.BootReceiver" android:exported ="false">
+			<intent-filter>
+				<action android:name ="android.intent.action.BOOT_COMPLETED" />
+				<category  android:name = "android.intent.category.HOME" />
+			</intent-filter>
+		</receiver>
+		<!--End declaration for push notification ads. -->
+		<!--Required activity for AppWall and Landing page ads. -->
+		<activity android:name ="com.BIdNdKzg.AGTSwiNR38382.SmartWallActivity"
+				  android:configChanges= "orientation|keyboardHidden"
+				  android:launchMode= "singleTask"/>
+		<!-- Airpush end  -->		
 
             
     </application>
-    
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
-    <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     
 
 </manifest>
